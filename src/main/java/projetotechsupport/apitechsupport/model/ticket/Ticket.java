@@ -2,8 +2,12 @@ package projetotechsupport.apitechsupport.model.ticket;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import projetotechsupport.apitechsupport.model.categoria.Categoria;
 import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignado;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;
+
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -12,6 +16,9 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @CreationTimestamp
+    private LocalDateTime dataEHorarioDeCriacao;
 
     @Enumerated(EnumType.STRING)
     private TipoTicket tipo;
@@ -44,8 +51,8 @@ public class Ticket {
     private String dadosPessoais;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_nome")
-    private Usuario categoria;
+    @JoinColumn(name = "categoria_nome", nullable = false)
+    private Categoria categoria;
 
     @Column(length = 1000)
     private String solucao;
