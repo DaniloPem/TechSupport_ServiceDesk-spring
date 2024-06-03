@@ -8,6 +8,7 @@ import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignado;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @Data
 @Entity
@@ -23,7 +24,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private TipoTicket tipo;
 
-    private Long numeroTicketSegundoTipo;
+    private String numeroTicketSegundoTipo;
 
     @Column(length = 150, nullable = false)
     private String titulo;
@@ -59,4 +60,19 @@ public class Ticket {
 
     @Column(length = 1000)
     private String solucaoDadosPessoais;
+
+    public Ticket(DadosCadastroTicket dadosTicket) {
+        this.titulo = dadosTicket.titulo();
+        Random random = new Random();
+        this.numeroTicketSegundoTipo = "X" + random.nextInt(100);
+        this.titulo = dadosTicket.titulo();
+        this.reportadoPor = dadosTicket.reportadoPor();
+        this.reportadoPara = dadosTicket.reportadoPara();
+        this.grupoAsignado = dadosTicket.grupoAsignado();
+        this.descricao = dadosTicket.descricao();
+        this.dadosPessoais = dadosTicket.dadosPessoais();
+        this.categoria = dadosTicket.categoria();
+        this.solucao = dadosTicket.solucao();
+        this.solucaoDadosPessoais = dadosTicket.solucaoDadosPessoais();
+    }
 }

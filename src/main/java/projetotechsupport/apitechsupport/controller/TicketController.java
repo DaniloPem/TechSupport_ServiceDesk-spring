@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
 import projetotechsupport.apitechsupport.model.ticket.Ticket;
 import projetotechsupport.apitechsupport.model.ticket.TicketRepository;
 
@@ -22,7 +23,8 @@ public class TicketController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Ticket create(@RequestBody Ticket ticket) {
+    public Ticket create(@RequestBody DadosCadastroTicket dadosTicket) {
+        var ticket = new Ticket(dadosTicket);
         return ticketRepository.save(ticket);
     }
 }
