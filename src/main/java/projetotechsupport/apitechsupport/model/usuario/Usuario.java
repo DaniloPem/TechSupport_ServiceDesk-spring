@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignado;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Usuario {
@@ -20,7 +22,10 @@ public class Usuario {
 
     private String telefone;
 
-    @ManyToMany
-    private GrupoAsignado grupo;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "usuario-grupoAsignado",
+    joinColumns = @JoinColumn(name = "usuario_id"),
+    inverseJoinColumns = @JoinColumn(name = "grupoAsignado_id"))
+    private List<GrupoAsignado> gruposAsignados;
 
 }

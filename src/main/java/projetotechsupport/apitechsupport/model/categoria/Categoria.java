@@ -1,10 +1,11 @@
 package projetotechsupport.apitechsupport.model.categoria;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import projetotechsupport.apitechsupport.model.tag.Tag;
+
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -15,4 +16,8 @@ public class Categoria {
     private Long id;
 
     private String nome;
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tag> tag;
+
 }

@@ -5,10 +5,13 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
 import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignado;
+import projetotechsupport.apitechsupport.model.tag.Tag;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 @Data
 @Entity
@@ -17,6 +20,9 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @CreationTimestamp
     private LocalDateTime dataEHorarioDeCriacao;
@@ -54,6 +60,12 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "categoria_nome", nullable = false)
     private Categoria categoria;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "ticket-tags",
+    joinColumns = @JoinColumn(name = "ticket_id"),
+    inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags;
 
     @Column(length = 1000)
     private String solucao;

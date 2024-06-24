@@ -1,15 +1,15 @@
-package projetotechsupport.apitechsupport.model.grupoAsignado;
+package projetotechsupport.apitechsupport.model.tag;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
-import projetotechsupport.apitechsupport.model.usuario.Usuario;
+import projetotechsupport.apitechsupport.model.ticket.Ticket;
 
 import java.util.List;
 
 @Data
 @Entity
-public class GrupoAsignado {
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,8 +17,10 @@ public class GrupoAsignado {
 
     private String nome;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
-    @ManyToMany(mappedBy = "gruposAsignados", fetch = FetchType.LAZY)
-    private List<Usuario> usuarios;
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+    private List<Ticket> tickets;
 }
