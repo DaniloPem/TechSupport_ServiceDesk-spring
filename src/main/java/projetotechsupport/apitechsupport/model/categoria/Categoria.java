@@ -3,6 +3,7 @@ package projetotechsupport.apitechsupport.model.categoria;
 import jakarta.persistence.*;
 import lombok.Data;
 import projetotechsupport.apitechsupport.model.tag.Tag;
+import projetotechsupport.apitechsupport.model.ticket.Ticket;
 
 import java.util.List;
 import java.util.Set;

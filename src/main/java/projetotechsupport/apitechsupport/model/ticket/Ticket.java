@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
 import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignado;
+import projetotechsupport.apitechsupport.model.subtag.Subtag;
 import projetotechsupport.apitechsupport.model.tag.Tag;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;
 
@@ -36,20 +37,20 @@ public class Ticket {
     private String titulo;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_codigo")
+    @JoinColumn(name = "reportado_por_id")
     private Usuario reportadoPor;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_codigo")
+    @JoinColumn(name = "reportado_para_id")
     private Usuario reportadoPara;
 
     @ManyToOne
-    @JoinColumn(name = "grupo_nome")
+    @JoinColumn(name = "grupo_asignado_id", nullable = false)
     private GrupoAsignado grupoAsignado;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_codigo")
-    private Usuario gestionadoPor;
+    @JoinColumn(name = "gerenciado_por_id")
+    private Usuario gerenciadoPor;
 
     @Column(length = 1000, nullable = false)
     private String descricao;
@@ -58,14 +59,20 @@ public class Ticket {
     private String dadosPessoais;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_nome", nullable = false)
-    private Categoria categoria;
+    @JoinColumn(name = "categoria_reportada_id", nullable = false)
+    private Categoria categoriaReportada;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "ticket-tags",
-    joinColumns = @JoinColumn(name = "ticket_id"),
-    inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private List<Tag> tags;
+    @ManyToOne
+    @JoinColumn(name = "categoria_afetada_id", nullable = false)
+    private Categoria categoriaAfetada;
+
+   @ManyToOne
+   @JoinColumn(name = "tag_id")
+    private Tag tag;
+
+    @ManyToOne
+    @JoinColumn(name = "subtag_id")
+    private Subtag subtag;
 
     @Column(length = 1000)
     private String solucao;
@@ -83,7 +90,10 @@ public class Ticket {
         this.grupoAsignado = dadosTicket.grupoAsignado();
         this.descricao = dadosTicket.descricao();
         this.dadosPessoais = dadosTicket.dadosPessoais();
-        this.categoria = dadosTicket.categoria();
+        this.categoriaReportada = dadosTicket.categoriaReportada();
+        this.categoriaAfetada = dadosTicket.categoriaAfetada();
+        this.tag = dadosTicket.tag();
+        this.subtag = dadosTicket.subtag();
         this.solucao = dadosTicket.solucao();
         this.solucaoDadosPessoais = dadosTicket.solucaoDadosPessoais();
     }

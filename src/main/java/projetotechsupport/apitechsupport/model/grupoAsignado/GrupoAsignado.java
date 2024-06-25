@@ -3,6 +3,7 @@ package projetotechsupport.apitechsupport.model.grupoAsignado;
 import jakarta.persistence.*;
 import lombok.Data;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
+import projetotechsupport.apitechsupport.model.ticket.Ticket;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;
 
 import java.util.List;

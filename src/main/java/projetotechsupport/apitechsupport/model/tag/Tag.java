@@ -3,6 +3,7 @@ package projetotechsupport.apitechsupport.model.tag;
 import jakarta.persistence.*;
 import lombok.Data;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
+import projetotechsupport.apitechsupport.model.subtag.Subtag;
 import projetotechsupport.apitechsupport.model.ticket.Ticket;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public class Tag {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
-    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
-    private List<Ticket> tickets;
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subtag> subtags;
 }
