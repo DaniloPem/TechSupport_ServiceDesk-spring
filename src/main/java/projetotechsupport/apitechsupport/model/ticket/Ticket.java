@@ -37,7 +37,7 @@ public class Ticket {
     private String titulo;
 
     @ManyToOne
-    @JoinColumn(name = "reportado_por_id")
+    @JoinColumn(name = "reportado_por_id", nullable = false)
     private Usuario reportadoPor;
 
     @ManyToOne
@@ -66,8 +66,8 @@ public class Ticket {
     @JoinColumn(name = "categoria_afetada_id", nullable = false)
     private Categoria categoriaAfetada;
 
-   @ManyToOne
-   @JoinColumn(name = "tag_id")
+    @ManyToOne
+    @JoinColumn(name = "tag_id")
     private Tag tag;
 
     @ManyToOne
