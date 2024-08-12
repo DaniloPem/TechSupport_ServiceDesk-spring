@@ -3,9 +3,8 @@ package projetotechsupport.apitechsupport.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import projetotechsupport.apitechsupport.model.categoria.Categoria;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignado;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignadoRepository;
+import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAssignado;
+import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAssignadoRepository;
 
 import java.util.List;
 
@@ -13,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class GrupoAsignadoController {
 
-    private final GrupoAsignadoRepository grupoAsignadoRepository;
+    private final GrupoAssignadoRepository grupoAssignadoRepository;
 
-    public @ResponseBody List<GrupoAsignado> listar() {
-        return grupoAsignadoRepository.findAll();
+    public @ResponseBody List<GrupoAssignado> listar() {
+        return grupoAssignadoRepository.findAll();
     }
 }

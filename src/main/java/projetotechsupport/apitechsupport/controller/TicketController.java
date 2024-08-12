@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
 import projetotechsupport.apitechsupport.model.ticket.Ticket;
 import projetotechsupport.apitechsupport.model.ticket.TicketRepository;
+import projetotechsupport.apitechsupport.service.TicketService;
 
 import java.util.List;
 
@@ -15,16 +16,15 @@ import java.util.List;
 @AllArgsConstructor
 public class TicketController {
 
-    private final TicketRepository ticketRepository;
+    private final TicketService ticketService;
 
     public @ResponseBody List<Ticket> listar() {
-        return ticketRepository.findAll();
+        return ticketService.findAll();
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Ticket create(@RequestBody DadosCadastroTicket dadosTicket) {
-        var ticket = new Ticket(dadosTicket);
-        return ticketRepository.save(ticket);
+        return this.ticketService.create(dadosTicket);
     }
 }

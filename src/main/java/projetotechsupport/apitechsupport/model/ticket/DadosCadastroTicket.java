@@ -1,24 +1,17 @@
 package projetotechsupport.apitechsupport.model.ticket;
 
-import projetotechsupport.apitechsupport.model.categoria.Categoria;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignado;
-import projetotechsupport.apitechsupport.model.subtag.Subtag;
-import projetotechsupport.apitechsupport.model.tag.Tag;
-import projetotechsupport.apitechsupport.model.usuario.Usuario;
-
-import java.util.List;
-
 public record DadosCadastroTicket(
+        Status status,
         String titulo,
-        Usuario reportadoPor,
-        Usuario reportadoPara,
-        GrupoAsignado grupoAsignado,
+        Long reportadoPorId,
+        Long reportadoParaId,
+        Long grupoAssignadoId,
         String descricao,
         String dadosPessoais,
-        Categoria categoriaReportada,
-        Categoria categoriaAfetada,
-        Tag tag,
-        Subtag subtag,
+        Long categoriaReportadaId,
+        Long categoriaAfetadaId,
+        Long tagId,
+        Long subtagId,
         String solucao,
         String solucaoDadosPessoais
 ) {

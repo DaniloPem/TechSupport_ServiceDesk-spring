@@ -2,7 +2,7 @@ package projetotechsupport.apitechsupport.model.usuario;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAsignado;
+import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAssignado;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class Usuario {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "usuario-grupoAsignado",
     joinColumns = @JoinColumn(name = "usuario_id"),
-    inverseJoinColumns = @JoinColumn(name = "grupoAsignado_id"))
-    private List<GrupoAsignado> gruposAsignados;
+    inverseJoinColumns = @JoinColumn(name = "grupo_asignado_id"))
+    private List<GrupoAssignado> gruposAsignados;
 
 }
