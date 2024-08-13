@@ -1,7 +1,6 @@
 package projetotechsupport.apitechsupport.model.ticket;
 
 public record DadosCadastroTicket(
-        Status status,
         String titulo,
         Long reportadoPorId,
         Long reportadoParaId,

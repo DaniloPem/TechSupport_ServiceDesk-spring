@@ -80,7 +80,7 @@ public class Ticket {
 
     public Ticket(DadosCadastroTicket dadosTicket, Usuario reportadoPor, Usuario reportadoPara, GrupoAssignado grupoAssignado,
                   Categoria categoriaReportada, Categoria categoriaAfetada, Tag tag, Subtag subtag) {
-        this.status = dadosTicket.status();
+        this.status = Status.OPEN;
         this.titulo = dadosTicket.titulo();
         Random random = new Random();
         this.numeroTicketSegundoTipo = "X" + random.nextInt(100);
@@ -96,4 +96,5 @@ public class Ticket {
         this.solucao = dadosTicket.solucao();
         this.solucaoDadosPessoais = dadosTicket.solucaoDadosPessoais();
     }
+
 }
