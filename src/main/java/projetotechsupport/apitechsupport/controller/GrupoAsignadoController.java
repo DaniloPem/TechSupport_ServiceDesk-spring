@@ -1,20 +1,22 @@
 package projetotechsupport.apitechsupport.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAssignado;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAssignadoRepository;
+import org.springframework.web.bind.annotation.*;
+import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
+import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/gruposAssignados")
 @AllArgsConstructor
 public class GrupoAsignadoController {
 
     private final GrupoAssignadoRepository grupoAssignadoRepository;
 
-    public @ResponseBody List<GrupoAssignado> listar() {
-        return grupoAssignadoRepository.findAll();
+    @GetMapping("/por-categoria/{categoriaId}")
+    public @ResponseBody List<GrupoAssignado> listar(@PathVariable Long categoriaId) {
+        return Collections.emptyList();
     }
 }

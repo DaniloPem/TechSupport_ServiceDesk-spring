@@ -6,8 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
 import projetotechsupport.apitechsupport.model.categoria.CategoriaRepository;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAssignado;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAssignadoRepository;
+import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
+import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRepository;
 import projetotechsupport.apitechsupport.model.subtag.Subtag;
 import projetotechsupport.apitechsupport.model.subtag.SubtagRepository;
 import projetotechsupport.apitechsupport.model.tag.Tag;
@@ -51,7 +51,7 @@ public class TicketService {
     }
 
     private void validarGrupoAssignado(GrupoAssignado grupoAssignado, Categoria categoriaAfetada) {
-        boolean categoriaContemGrupo = categoriaAfetada.getGruposAsignados().contains(grupoAssignado);
+        boolean categoriaContemGrupo = categoriaAfetada.getGruposAssignados().contains(grupoAssignado);
         if (!categoriaContemGrupo) {
             throw new DataIntegrityViolationException("O GRUPO INSERIDO NÃO GERENCIA A CATEGORIA ESPECIFICADA.");
         }

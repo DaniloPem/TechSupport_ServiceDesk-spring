@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
-import projetotechsupport.apitechsupport.model.grupoAsignado.GrupoAssignado;
+import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
 import projetotechsupport.apitechsupport.model.subtag.Subtag;
 import projetotechsupport.apitechsupport.model.tag.Tag;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;

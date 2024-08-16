@@ -1,4 +1,4 @@
-package projetotechsupport.apitechsupport.model.grupoAsignado;
+package projetotechsupport.apitechsupport.model.grupoAssignado;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,12 +19,12 @@ public class GrupoAssignado {
     private String nome;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "usuario-grupoAsignado",
-                joinColumns = @JoinColumn(name = "grupo_asignado_id"),
+    @JoinTable(name = "categoria_grupo_assignado",
+                joinColumns = @JoinColumn(name = "grupo_assignado_id"),
                 inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias;
 
-    @ManyToMany(mappedBy = "gruposAsignados", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "gruposAssignados", fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
 
 

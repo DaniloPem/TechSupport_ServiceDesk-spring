@@ -4,7 +4,7 @@ CREATE TABLE categoria (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE grupo_asignado (
+CREATE TABLE grupo_assignado (
     id BIGINT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(255),
     PRIMARY KEY (id)
@@ -55,14 +55,14 @@ CREATE TABLE usuario (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE usuario_grupoAsignado (
+CREATE TABLE usuario_grupo_assignado (
     usuario_id BIGINT NOT NULL,
     grupo_asignado_id BIGINT NOT NULL,
     PRIMARY KEY (usuario_id, grupo_asignado_id)
 );
 
-CREATE TABLE categoria_grupoAsignado (
-    grupo_asignado_id BIGINT NOT NULL,
+CREATE TABLE categoria_grupo_assignado (
+    grupo_assignado_id BIGINT NOT NULL,
     categoria_id BIGINT NOT NULL,
     PRIMARY KEY (grupo_asignado_id, categoria_id)
 );

@@ -1,5 +1,6 @@
 package projetotechsupport.apitechsupport.model.tag;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
