@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.subtag.Subtag;
 import projetotechsupport.apitechsupport.model.subtag.SubtagRepository;
+import projetotechsupport.apitechsupport.service.SubtagService;
+import projetotechsupport.apitechsupport.shared.dtos.IdNomeDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,13 +15,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SubtagController {
 
-    private final SubtagRepository subtagRepository;
+    private final SubtagService subtagService;
 
     @GetMapping("/por-tag/{tagId}")
-    public @ResponseBody List<Subtag> listar(@PathVariable Long tagId) {
-        List<Subtag> subTags = subtagRepository.findAll();
-        return subTags.stream()
-                .filter(subtag -> subtag.getTag().getId().equals(tagId))
-                .collect(Collectors.toList());
+    public @ResponseBody List<IdNomeDTO> listar(@PathVariable Long tagId) {
+        return subtagService.findByTagId(tagId);
     }
 }
