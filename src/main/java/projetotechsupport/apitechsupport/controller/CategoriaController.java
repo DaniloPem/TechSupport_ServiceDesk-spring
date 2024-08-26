@@ -1,12 +1,11 @@
 package projetotechsupport.apitechsupport.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
+import projetotechsupport.apitechsupport.model.categoria.CategoriaRecord;
 import projetotechsupport.apitechsupport.model.categoria.CategoriaRepository;
+import projetotechsupport.apitechsupport.service.CategoriaService;
 
 import java.util.List;
 
@@ -15,10 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoriaController {
 
-    private final CategoriaRepository categoriaRepository;
+    private final CategoriaService categoriaService;
 
-    @GetMapping()
-    public @ResponseBody List<Categoria> listar() {
-        return categoriaRepository.findAll();
+    @GetMapping("/por-nome")
+    public @ResponseBody List<CategoriaRecord> listar(@RequestParam(value = "nome") String namePattern) {
+        return categoriaService.findByNomeLike(namePattern);
     }
 }
