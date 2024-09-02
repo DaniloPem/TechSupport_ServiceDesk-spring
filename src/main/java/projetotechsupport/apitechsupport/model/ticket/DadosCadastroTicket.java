@@ -2,6 +2,7 @@ package projetotechsupport.apitechsupport.model.ticket;
 
 public record DadosCadastroTicket(
         String titulo,
+        String numeroTicketSegundoTipo,
         Long reportadoPorId,
         Long reportadoParaId,
         Long grupoAssignadoId,

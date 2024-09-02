@@ -23,12 +23,14 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(nullable = false, updatable = false)  //mudado
     @CreationTimestamp
     private LocalDateTime dataEHorarioDeCriacao;
 
     @Enumerated(EnumType.STRING)
     private TipoTicket tipo;
 
+    @Column(length = 9, nullable = false)
     private String numeroTicketSegundoTipo;
 
     @Column(length = 150, nullable = false)
@@ -83,7 +85,7 @@ public class Ticket {
         this.status = Status.OPEN;
         this.titulo = dadosTicket.titulo();
         Random random = new Random();
-        this.numeroTicketSegundoTipo = "X" + random.nextInt(100);
+        this.numeroTicketSegundoTipo = dadosTicket.numeroTicketSegundoTipo();
         this.reportadoPor = reportadoPor;
         this.reportadoPara = reportadoPara;
         this.grupoAssignado = grupoAssignado;

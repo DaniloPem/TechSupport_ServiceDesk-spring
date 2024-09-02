@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import projetotechsupport.apitechsupport.component.GerenciadorNumeroTicketComponent;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
 import projetotechsupport.apitechsupport.model.categoria.CategoriaRepository;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
@@ -15,6 +16,7 @@ import projetotechsupport.apitechsupport.model.tag.TagRepository;
 import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
 import projetotechsupport.apitechsupport.model.ticket.Ticket;
 import projetotechsupport.apitechsupport.model.ticket.TicketRepository;
+import projetotechsupport.apitechsupport.model.ticket.TipoTicket;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;
 import projetotechsupport.apitechsupport.model.usuario.UsuarioRepository;
 
@@ -32,6 +34,7 @@ public class TicketService {
     private final TagRepository tagRepository;
     private final SubtagRepository subtagRepository;
     private final CategoriaRepository categoriaRepository;
+    private final GerenciadorNumeroTicketComponent gerenciadorNumeroTicketComponent;
 
     public List<Ticket> findAll() {
         return ticketRepository.findAll();
@@ -46,6 +49,7 @@ public class TicketService {
         Tag tag = getTag(dadosTicket);
         Subtag subtag = getSubTag(dadosTicket);
         validarGrupoAssignado(grupoAssignado, categoriaAfetada);
+
         Ticket ticket = new Ticket(dadosTicket, usuarioReportadoPor, usuarioReportadoPara, grupoAssignado, categoriaReportada, categoriaAfetada, tag, subtag);
         return ticketRepository.save(ticket);
     }
@@ -104,4 +108,9 @@ public class TicketService {
         Optional<Subtag> subTagOpt = subtagRepository.findById(subTagId);
         return subTagOpt.orElseThrow(() -> new DataIntegrityViolationException("TAG INSERIDO NÃO EXISTE."));
     }
+
+    public String getNumeroTicket(TipoTicket tipoTicket) {
+        return gerenciadorNumeroTicketComponent.getNumeroTicket(tipoTicket);
+    }
+
 }
