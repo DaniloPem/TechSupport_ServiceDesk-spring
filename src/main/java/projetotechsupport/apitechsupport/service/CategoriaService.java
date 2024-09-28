@@ -19,6 +19,8 @@ public class CategoriaService {
     private final CategoriaRepository categoriaRepository;
     public List<CategoriaRecord> findByNomeLike(String namePattern) {
         List<Categoria> categorias = categoriaRepository.findByNomeLike(namePattern + "%");
-        return categorias.stream().map(categoria -> new CategoriaRecord(categoria.getNome())).toList();
+        return categorias.stream()
+                .map(CategoriaRecord::new)
+                .toList();
     }
 }

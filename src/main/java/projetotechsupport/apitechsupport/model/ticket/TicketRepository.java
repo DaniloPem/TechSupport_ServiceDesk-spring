@@ -7,6 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    Optional<Ticket> findTopByTipoTicketOrderBynumeroTicketSegundoTipoDesc(TipoTicket tipoTicket);
+    Optional<Ticket> findTopByTipoOrderByNumeroTicketSegundoTipoDesc(TipoTicket tipoTicket);
 
 }

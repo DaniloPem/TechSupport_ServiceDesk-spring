@@ -22,7 +22,7 @@ public class GerenciadorNumeroTicketComponent {
     private Set<String> numerosRequestEmAndamento = new HashSet<>();
 
     public String getNumeroTicket(TipoTicket tipoTicket) {
-        Optional<Ticket> ultimoTicketOptional = ticketRepository.findTopByTipoTicketOrderBynumeroTicketSegundoTipoDesc(tipoTicket);
+        Optional<Ticket> ultimoTicketOptional = ticketRepository.findTopByTipoOrderByNumeroTicketSegundoTipoDesc(tipoTicket);
         Optional<String> numeroOptional = ultimoTicketOptional.map(Ticket::getNumeroTicketSegundoTipo);
         Integer numero = numeroOptional.map(num -> Integer.parseInt(num.substring(2)) + 1).orElse(1);
         int comprimentoNumero = 7;
