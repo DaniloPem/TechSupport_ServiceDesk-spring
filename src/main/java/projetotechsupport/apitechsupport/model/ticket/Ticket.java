@@ -17,13 +17,13 @@ import java.util.Random;
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(nullable = false, updatable = false)  //mudado
+    @Column(nullable = false, updatable = false, name = "data_e_horario_de_criacao")  //mudado
     @CreationTimestamp
     private LocalDateTime dataEHorarioDeCriacao;
 
@@ -45,7 +45,7 @@ public class Ticket {
     private Usuario reportadoPara;
 
     @ManyToOne
-    @JoinColumn(name = "grupo_asignado_id", nullable = false)
+    @JoinColumn(name = "grupo_assignado_id", nullable = false)
     private GrupoAssignado grupoAssignado;
 
     @ManyToOne
@@ -82,9 +82,8 @@ public class Ticket {
 
     public Ticket(DadosCadastroTicket dadosTicket, Usuario reportadoPor, Usuario reportadoPara, GrupoAssignado grupoAssignado,
                   Categoria categoriaReportada, Categoria categoriaAfetada, Tag tag, Subtag subtag) {
-        this.status = Status.OPEN;
+        this.status = Status.WORKING;
         this.titulo = dadosTicket.titulo();
-        Random random = new Random();
         this.numeroTicketSegundoTipo = dadosTicket.numeroTicketSegundoTipo();
         this.reportadoPor = reportadoPor;
         this.reportadoPara = reportadoPara;

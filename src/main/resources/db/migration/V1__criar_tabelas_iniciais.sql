@@ -33,7 +33,7 @@ CREATE TABLE ticket (
     titulo VARCHAR(150) NOT NULL,
     reportado_por_id BIGINT NOT NULL,
     reportado_para_id BIGINT NOT NULL,
-    grupo_asignado_id BIGINT NOT NULL,
+    grupo_assignado_id BIGINT NOT NULL,
     gerenciado_por_id BIGINT,
     descricao VARCHAR(1000) NOT NULL,
     dados_pessoais VARCHAR(1000) NOT NULL,
@@ -57,14 +57,14 @@ CREATE TABLE usuario (
 
 CREATE TABLE usuario_grupo_assignado (
     usuario_id BIGINT NOT NULL,
-    grupo_asignado_id BIGINT NOT NULL,
-    PRIMARY KEY (usuario_id, grupo_asignado_id)
+    grupo_assignado_id BIGINT NOT NULL,
+    PRIMARY KEY (usuario_id, grupo_assignado_id)
 );
 
 CREATE TABLE categoria_grupo_assignado (
     grupo_assignado_id BIGINT NOT NULL,
     categoria_id BIGINT NOT NULL,
-    PRIMARY KEY (grupo_asignado_id, categoria_id)
+    PRIMARY KEY (grupo_assignado_id, categoria_id)
 );
 
 ALTER TABLE subtag
@@ -88,9 +88,9 @@ ALTER TABLE ticket
     REFERENCES usuario (id);
 
 ALTER TABLE ticket
-    ADD CONSTRAINT FK_ticket_grupo_asignado
-    FOREIGN KEY (grupo_asignado_id)
-    REFERENCES grupo_asignado (id);
+    ADD CONSTRAINT FK_ticket_grupo_assignado
+    FOREIGN KEY (grupo_assignado_id)
+    REFERENCES grupo_assignado (id);
 
 ALTER TABLE ticket
     ADD CONSTRAINT FK_ticket_usuario_gerenciado_por
@@ -117,22 +117,22 @@ ALTER TABLE ticket
     FOREIGN KEY (subtag_id)
     REFERENCES subtag (id);
 
-ALTER TABLE usuario_grupoAsignado
-    ADD CONSTRAINT FK_usuario_grupoAsignado_usuario
+ALTER TABLE usuario_grupo_assignado
+    ADD CONSTRAINT FK_usuario_grupo_assignado_usuario
     FOREIGN KEY (usuario_id)
     REFERENCES usuario (id);
 
-ALTER TABLE usuario_grupoAsignado
-    ADD CONSTRAINT FK_usuario_grupoAsignado_grupo_asignado
-    FOREIGN KEY (grupo_asignado_id)
-    REFERENCES grupo_asignado (id);
+ALTER TABLE usuario_grupo_assignado
+    ADD CONSTRAINT FK_usuario_grupo_assignado_grupo_assignado
+    FOREIGN KEY (grupo_assignado_id)
+    REFERENCES grupo_assignado (id);
 
-ALTER TABLE categoria_grupoAsignado
-    ADD CONSTRAINT FK_categoria_grupoAsignado_grupo_asignado
-    FOREIGN KEY (grupo_asignado_id)
-    REFERENCES grupo_asignado (id);
+ALTER TABLE categoria_grupo_assignado
+    ADD CONSTRAINT FK_categoria_grupo_assignado_grupo_assignado
+    FOREIGN KEY (grupo_assignado_id)
+    REFERENCES grupo_assignado (id);
 
-ALTER TABLE categoria_grupoAsignado
-    ADD CONSTRAINT FK_categoria_grupoAsignado_categoria
+ALTER TABLE categoria_grupo_assignado
+    ADD CONSTRAINT FK_categoria_grupo_assignado_categoria
     FOREIGN KEY (categoria_id)
     REFERENCES categoria (id);

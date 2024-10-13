@@ -1,5 +1,6 @@
 package projetotechsupport.apitechsupport.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class TicketController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Ticket create(@RequestBody DadosCadastroTicket dadosTicket) {
+    public Ticket create(@RequestBody @Valid DadosCadastroTicket dadosTicket) {
         return this.ticketService.create(dadosTicket);
     }
 

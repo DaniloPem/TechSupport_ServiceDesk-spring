@@ -2,18 +2,15 @@ package projetotechsupport.apitechsupport.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
-import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRepository;
 import projetotechsupport.apitechsupport.service.GrupoAssignadoService;
 import projetotechsupport.apitechsupport.shared.dtos.IdNomeDTO;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/gruposAssignados")
 @AllArgsConstructor
-public class GrupoAsignadoController {
+public class GrupoAssignadoController {
 
     private final GrupoAssignadoService grupoAssignadoService;
 

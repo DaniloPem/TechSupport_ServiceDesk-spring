@@ -99,12 +99,14 @@ public class TicketService {
 
     private Tag getTag(DadosCadastroTicket dadosTicket) {
         Long tagId = dadosTicket.tagId();
+        if (tagId == null) return null;
         Optional<Tag> tagOpt = tagRepository.findById(tagId);
         return tagOpt.orElseThrow(() -> new DataIntegrityViolationException("TAG INSERIDO NÃO EXISTE."));
     }
 
     private Subtag getSubTag(DadosCadastroTicket dadosTicket) {
         Long subTagId = dadosTicket.subtagId();
+        if (subTagId == null) return null;
         Optional<Subtag> subTagOpt = subtagRepository.findById(subTagId);
         return subTagOpt.orElseThrow(() -> new DataIntegrityViolationException("TAG INSERIDO NÃO EXISTE."));
     }

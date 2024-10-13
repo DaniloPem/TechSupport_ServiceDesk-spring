@@ -25,7 +25,7 @@ public class Usuario {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "usuario_grupo_assignado",
     joinColumns = @JoinColumn(name = "usuario_id"),
-    inverseJoinColumns = @JoinColumn(name = "grupo_asignado_id"))
+    inverseJoinColumns = @JoinColumn(name = "grupo_assignado_id"))
     private List<GrupoAssignado> gruposAssignados;
 
 }
