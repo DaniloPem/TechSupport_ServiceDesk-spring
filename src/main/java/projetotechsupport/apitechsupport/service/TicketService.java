@@ -3,6 +3,7 @@ package projetotechsupport.apitechsupport.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import projetotechsupport.apitechsupport.component.GerenciadorNumeroTicketComponent;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
@@ -41,7 +42,7 @@ public class TicketService {
     }
 
     public Ticket create(DadosCadastroTicket dadosTicket) {
-        Usuario usuarioReportadoPor = getUsuarioReportado(dadosTicket);
+        Usuario usuarioReportadoPor = getUsuarioReportado(dadosTicket.reportadoPorId());
         Usuario usuarioReportadoPara = getUsuarioReportadoPara(dadosTicket, usuarioReportadoPor);
         GrupoAssignado grupoAssignado = getGrupoAssignado(dadosTicket);
         Categoria categoriaReportada = getCategoriaReportada(dadosTicket);
@@ -61,35 +62,30 @@ public class TicketService {
         }
     }
 
-    private Usuario getUsuarioReportado(DadosCadastroTicket dadosTicket) {
-        Long usuarioReportadoPorId = dadosTicket.reportadoPorId();
+    private Usuario getUsuarioReportado(Long usuarioReportadoPorId) {
         Optional<Usuario> usuarioReportadoPorOpt = usuarioRepository.findById(usuarioReportadoPorId);
         return usuarioReportadoPorOpt.orElseThrow(() -> new DataIntegrityViolationException("USUÁRIO INSERIDO NÃO EXISTE."));
     }
 
-    private Usuario getUsuarioReportadoPara(DadosCadastroTicket dadosTicket, Usuario usuarioReportadoPor) {
-        Long reportadoParaId = dadosTicket.reportadoParaId();
-        if (reportadoParaId == null) {
+    private Usuario getUsuarioReportadoPara(Long usuarioReportadoParaId, Usuario usuarioReportadoPor) {
+        if (usuarioReportadoParaId == null) {
             return usuarioReportadoPor;
         }
-        Optional<Usuario> usuarioReportadoParaOpt = usuarioRepository.findById(reportadoParaId);
+        Optional<Usuario> usuarioReportadoParaOpt = usuarioRepository.findById(usuarioReportadoParaId);
         return usuarioReportadoParaOpt.orElseThrow(() -> new DataIntegrityViolationException("USUÁRIO INSERIDO NÃO EXISTE."));
     }
 
-    private GrupoAssignado getGrupoAssignado(DadosCadastroTicket dadosTicket) {
-        Long grupoAssignadoId = dadosTicket.grupoAssignadoId();
+    private GrupoAssignado getGrupoAssignado(Long grupoAssignadoId) {
         Optional<GrupoAssignado> grupoAssignadoOpt = grupoAssignadoRepository.findById(grupoAssignadoId);
         return grupoAssignadoOpt.orElseThrow(() -> new DataIntegrityViolationException("GRUPO ASSIGNADO INSERIDO NÃO EXISTE."));
     }
 
-    private Categoria getCategoriaReportada(DadosCadastroTicket dadosTicket) {
-        Long categoriaReportadaId = dadosTicket.categoriaReportadaId();
+    private Categoria getCategoriaReportada(Long categoriaReportadaId) {
         Optional<Categoria> categoriaReportadaOpt = categoriaRepository.findById(categoriaReportadaId);
         return categoriaReportadaOpt.orElseThrow(() -> new DataIntegrityViolationException("CATEGORIA INSERIDA NÃO EXISTE."));
     }
 
-    private Categoria getCategoriaAfetada(DadosCadastroTicket dadosTicket, Categoria categoriaReportada) {
-        Long categoriaAfetadaId = dadosTicket.categoriaReportadaId();
+    private Categoria getCategoriaAfetada(Long categoriaAfetadaId, Categoria categoriaReportada) {
         if (categoriaAfetadaId == null) {
             return categoriaReportada;
         }
@@ -97,15 +93,13 @@ public class TicketService {
         return categoriaAfetadaOpt.orElseThrow(() -> new DataIntegrityViolationException("CATEGORIA INSERIDA NÃO EXISTE."));
     }
 
-    private Tag getTag(DadosCadastroTicket dadosTicket) {
-        Long tagId = dadosTicket.tagId();
+    private Tag getTag(Long tagId) {
         if (tagId == null) return null;
         Optional<Tag> tagOpt = tagRepository.findById(tagId);
         return tagOpt.orElseThrow(() -> new DataIntegrityViolationException("TAG INSERIDO NÃO EXISTE."));
     }
 
-    private Subtag getSubTag(DadosCadastroTicket dadosTicket) {
-        Long subTagId = dadosTicket.subtagId();
+    private Subtag getSubTag(Long subTagId) {
         if (subTagId == null) return null;
         Optional<Subtag> subTagOpt = subtagRepository.findById(subTagId);
         return subTagOpt.orElseThrow(() -> new DataIntegrityViolationException("TAG INSERIDO NÃO EXISTE."));
@@ -113,6 +107,32 @@ public class TicketService {
 
     public String getNumeroTicket(TipoTicket tipoTicket) {
         return gerenciadorNumeroTicketComponent.getNumeroTicket(tipoTicket);
+    }
+
+    public Ticket atualizarTicket(DadosCadastroTicket dadosTicket, Long id) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+        Ticket ticketEncontrado = ticketOptional.orElseThrow(() -> new DataIntegrityViolationException("TICKET NÃO EXISTE."));
+        ticketEncontrado.setTitulo(dadosTicket.titulo());
+        ticketEncontrado.setNumeroTicketSegundoTipo(dadosTicket.numeroTicketSegundoTipo());
+        Usuario usuarioReportadoPor = getUsuarioReportado(dadosTicket.reportadoPorId());
+        ticketEncontrado.setReportadoPor(usuarioReportadoPor);
+        Usuario usuarioReportadoPara = getUsuarioReportadoPara(dadosTicket.reportadoParaId(), usuarioReportadoPor);
+        ticketEncontrado.setReportadoPara(usuarioReportadoPara);
+        GrupoAssignado grupoAssignado = getGrupoAssignado(dadosTicket.grupoAssignadoId());
+        ticketEncontrado.setGrupoAssignado(grupoAssignado);
+        ticketEncontrado.setDescricao(dadosTicket.descricao());
+        ticketEncontrado.setDadosPessoais(dadosTicket.dadosPessoais());
+        Categoria categoriaReportada = getCategoriaReportada(dadosTicket.categoriaReportadaId());
+        ticketEncontrado.setCategoriaReportada(categoriaReportada);
+        Categoria categoriaAfetada = getCategoriaAfetada(dadosTicket.categoriaAfetadaId(), categoriaReportada);
+        ticketEncontrado.setCategoriaAfetada(categoriaAfetada);
+        Tag tag = getTag(dadosTicket.tagId());
+        ticketEncontrado.setTag(tag);
+        Subtag subtag = getSubTag(dadosTicket.subtagId());
+        ticketEncontrado.setSubtag(subtag);
+        ticketEncontrado.setSolucao(dadosTicket.solucao());
+        ticketEncontrado.setSolucaoDadosPessoais(dadosTicket.solucaoDadosPessoais());
+        return ticketEncontrado;
     }
 
 }
