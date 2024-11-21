@@ -2,13 +2,11 @@ package projetotechsupport.apitechsupport.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
 import projetotechsupport.apitechsupport.model.ticket.Ticket;
-import projetotechsupport.apitechsupport.model.ticket.TicketRepository;
 import projetotechsupport.apitechsupport.model.ticket.TipoTicket;
 import projetotechsupport.apitechsupport.service.TicketService;
 
@@ -35,5 +33,12 @@ public class TicketController {
     public String getNumeroProximoTicket(@RequestParam TipoTicket tipoTicket) {
         return this.ticketService.getNumeroTicket(tipoTicket);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Ticket> atualizar(@PathVariable Long idTicket, @RequestBody @Valid DadosCadastroTicket dadosTicket) {
+        return ResponseEntity.ok(ticketService.atualizarTicket(dadosTicket, idTicket));
+    }
+
+
 
 }
