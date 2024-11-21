@@ -43,12 +43,12 @@ public class TicketService {
 
     public Ticket create(DadosCadastroTicket dadosTicket) {
         Usuario usuarioReportadoPor = getUsuarioReportado(dadosTicket.reportadoPorId());
-        Usuario usuarioReportadoPara = getUsuarioReportadoPara(dadosTicket, usuarioReportadoPor);
-        GrupoAssignado grupoAssignado = getGrupoAssignado(dadosTicket);
-        Categoria categoriaReportada = getCategoriaReportada(dadosTicket);
-        Categoria categoriaAfetada = getCategoriaAfetada(dadosTicket, categoriaReportada);
-        Tag tag = getTag(dadosTicket);
-        Subtag subtag = getSubTag(dadosTicket);
+        Usuario usuarioReportadoPara = getUsuarioReportadoPara(dadosTicket.reportadoParaId(), usuarioReportadoPor);
+        GrupoAssignado grupoAssignado = getGrupoAssignado(dadosTicket.grupoAssignadoId());
+        Categoria categoriaReportada = getCategoriaReportada(dadosTicket.categoriaReportadaId());
+        Categoria categoriaAfetada = getCategoriaAfetada(dadosTicket.categoriaAfetadaId(), categoriaReportada);
+        Tag tag = getTag(dadosTicket.tagId());
+        Subtag subtag = getSubTag(dadosTicket.subtagId());
         validarGrupoAssignado(grupoAssignado, categoriaAfetada);
 
         Ticket ticket = new Ticket(dadosTicket, usuarioReportadoPor, usuarioReportadoPara, grupoAssignado, categoriaReportada, categoriaAfetada, tag, subtag);
