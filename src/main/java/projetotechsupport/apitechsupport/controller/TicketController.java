@@ -25,8 +25,8 @@ public class TicketController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Ticket create(@RequestBody @Valid DadosCadastroTicket dadosTicket) {
-        return this.ticketService.create(dadosTicket);
+    public ResponseEntity<Long> create(@RequestBody @Valid DadosCadastroTicket dadosTicket) {
+        return ResponseEntity.ok(ticketService.create(dadosTicket).getId());
     }
 
     @GetMapping("/proximo-numero-ticket")
@@ -35,10 +35,7 @@ public class TicketController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Ticket> atualizar(@PathVariable Long idTicket, @RequestBody @Valid DadosCadastroTicket dadosTicket) {
-        return ResponseEntity.ok(ticketService.atualizarTicket(dadosTicket, idTicket));
+    public void atualizar(@PathVariable Long id, @RequestBody @Valid DadosCadastroTicket dadosTicket) {
+        ticketService.atualizarTicket(dadosTicket, id);
     }
-
-
-
 }

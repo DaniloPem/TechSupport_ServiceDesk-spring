@@ -2,6 +2,7 @@ package projetotechsupport.apitechsupport.model.ticket;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
@@ -14,6 +15,7 @@ import java.util.Random;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Ticket {
 
     @Id
