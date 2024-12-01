@@ -6,5 +6,5 @@ public enum Status {
     UPDATED,
     TRANSFERRED,
     RESOLVED,
-    CLOSED,
+    CLOSED
 }
