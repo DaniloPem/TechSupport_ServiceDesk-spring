@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
+import projetotechsupport.apitechsupport.model.ticket.DadosVisualizacaoTicketById;
 import projetotechsupport.apitechsupport.model.ticket.Ticket;
 import projetotechsupport.apitechsupport.model.ticket.TipoTicket;
 import projetotechsupport.apitechsupport.service.TicketService;
@@ -32,6 +33,11 @@ public class TicketController {
     @GetMapping("/proximo-numero-ticket")
     public String getNumeroProximoTicket(@RequestParam TipoTicket tipoTicket) {
         return this.ticketService.getNumeroTicket(tipoTicket);
+    }
+
+    @GetMapping("/{id}")
+    public @ResponseBody DadosVisualizacaoTicketById getTicketById (@PathVariable Long id) {
+        return ticketService.getTicketById(id);
     }
 
     @PutMapping("/{id}")

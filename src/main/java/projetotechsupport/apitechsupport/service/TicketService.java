@@ -3,7 +3,6 @@ package projetotechsupport.apitechsupport.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import projetotechsupport.apitechsupport.component.GerenciadorNumeroTicketComponent;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
@@ -14,10 +13,7 @@ import projetotechsupport.apitechsupport.model.subtag.Subtag;
 import projetotechsupport.apitechsupport.model.subtag.SubtagRepository;
 import projetotechsupport.apitechsupport.model.tag.Tag;
 import projetotechsupport.apitechsupport.model.tag.TagRepository;
-import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
-import projetotechsupport.apitechsupport.model.ticket.Ticket;
-import projetotechsupport.apitechsupport.model.ticket.TicketRepository;
-import projetotechsupport.apitechsupport.model.ticket.TipoTicket;
+import projetotechsupport.apitechsupport.model.ticket.*;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;
 import projetotechsupport.apitechsupport.model.usuario.UsuarioRepository;
 
@@ -107,6 +103,12 @@ public class TicketService {
 
     public String getNumeroTicket(TipoTicket tipoTicket) {
         return gerenciadorNumeroTicketComponent.getNumeroTicket(tipoTicket);
+    }
+
+    public DadosVisualizacaoTicketById getTicketById(Long id) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+        Ticket ticket = ticketOptional.orElseThrow(() -> new DataIntegrityViolationException("TICKET NÃO EXISTE"));
+        return new DadosVisualizacaoTicketById(ticket);
     }
 
     public Ticket atualizarTicket(DadosCadastroTicket dadosTicket, Long id) {
