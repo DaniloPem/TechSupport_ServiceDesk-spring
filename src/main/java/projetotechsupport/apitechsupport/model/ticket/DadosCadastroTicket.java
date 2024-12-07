@@ -7,6 +7,8 @@ public record DadosCadastroTicket(
         @NotBlank
         String titulo,
         @NotBlank
+        TipoTicket tipo,
+        @NotBlank
         String numeroTicketSegundoTipo,
         @NotNull
         Long reportadoPorId,

@@ -84,6 +84,7 @@ public class Ticket {
 
     public Ticket(DadosCadastroTicket dadosTicket, Usuario reportadoPor, Usuario reportadoPara, GrupoAssignado grupoAssignado,
                   Categoria categoriaReportada, Categoria categoriaAfetada, Tag tag, Subtag subtag) {
+        this.tipo = dadosTicket.tipo();
         this.status = Status.WORKING;
         this.titulo = dadosTicket.titulo();
         this.numeroTicketSegundoTipo = dadosTicket.numeroTicketSegundoTipo();
