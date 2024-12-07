@@ -41,7 +41,8 @@ public class TicketController {
     }
 
     @PutMapping("/{id}")
-    public void atualizar(@PathVariable Long id, @RequestBody @Valid DadosCadastroTicket dadosTicket) {
+    public ResponseEntity<Long> atualizar(@PathVariable Long id, @RequestBody @Valid DadosCadastroTicket dadosTicket) {
         ticketService.atualizarTicket(dadosTicket, id);
+        return ResponseEntity.ok(id);
     }
 }

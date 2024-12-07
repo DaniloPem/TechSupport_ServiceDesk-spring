@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 public record DadosCadastroTicket(
         @NotBlank
         String titulo,
-        @NotBlank
         TipoTicket tipo,
         @NotBlank
         String numeroTicketSegundoTipo,
