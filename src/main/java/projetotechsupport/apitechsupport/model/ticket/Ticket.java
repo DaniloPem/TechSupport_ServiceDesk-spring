@@ -43,7 +43,7 @@ public class Ticket {
     private Usuario reportadoPor;
 
     @ManyToOne
-    @JoinColumn(name = "reportado_para_id")
+    @JoinColumn(name = "reportado_para_id", nullable = false)
     private Usuario reportadoPara;
 
     @ManyToOne
@@ -101,4 +101,10 @@ public class Ticket {
         this.solucaoDadosPessoais = dadosTicket.solucaoDadosPessoais();
     }
 
+    public Long getIdTag() { return tag == null ? null : tag.getId();}
+    public String getNomeTag() {
+        return tag == null ? null : tag.getNome();
+    }
+    public Long getIdSubTag() { return subtag == null ? null : subtag.getId();}
+    public String getNomeSubTag() { return subtag == null ? null : subtag.getNome();}
 }

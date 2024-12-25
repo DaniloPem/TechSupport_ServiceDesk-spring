@@ -46,8 +46,8 @@ public record DadosVisualizacaoTicketById(
                 ticket.getDadosPessoais(),
                 ticket.getCategoriaReportada().getId(),
                 ticket.getCategoriaAfetada().getId(),
-                ticket.getTag().getId(),
-                ticket.getSubtag().getId(),
+                ticket.getIdTag(),
+                ticket.getIdSubTag(),
                 ticket.getSolucao(),
                 ticket.getSolucaoDadosPessoais());
     }

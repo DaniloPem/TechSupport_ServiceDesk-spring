@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
-import projetotechsupport.apitechsupport.model.ticket.DadosVisualizacaoTicketById;
-import projetotechsupport.apitechsupport.model.ticket.Ticket;
-import projetotechsupport.apitechsupport.model.ticket.TipoTicket;
+import projetotechsupport.apitechsupport.model.ticket.*;
 import projetotechsupport.apitechsupport.service.TicketService;
 
 import java.util.List;
@@ -20,8 +17,9 @@ public class TicketController {
 
     private final TicketService ticketService;
 
-    public @ResponseBody List<Ticket> listar() {
-        return ticketService.findAll();
+    @GetMapping
+    public @ResponseBody List<DadosVisualizacaoTicketByTipo> listarTicketsPorTipo(@RequestParam TipoTicket type) {
+        return ticketService.findAllByTypeTicket(type);
     }
 
     @PostMapping

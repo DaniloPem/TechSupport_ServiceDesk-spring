@@ -33,8 +33,9 @@ public class TicketService {
     private final CategoriaRepository categoriaRepository;
     private final GerenciadorNumeroTicketComponent gerenciadorNumeroTicketComponent;
 
-    public List<Ticket> findAll() {
-        return ticketRepository.findAll();
+    public List<DadosVisualizacaoTicketByTipo> findAllByTypeTicket(TipoTicket tipoTicket) {
+        List<Ticket> ticketsByTipo = ticketRepository.findByTipo(tipoTicket);
+        return ticketsByTipo.stream().map(DadosVisualizacaoTicketByTipo::new).toList();
     }
 
     public Ticket create(DadosCadastroTicket dadosTicket) {
