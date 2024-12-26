@@ -17,10 +17,10 @@ public class TicketController {
 
     private final TicketService ticketService;
 
-    @GetMapping
-    public @ResponseBody List<DadosVisualizacaoTicketByTipo> listarTicketsPorTipo(@RequestParam TipoTicket type) {
-        return ticketService.findAllByTypeTicket(type);
-    }
+//    @GetMapping
+//    public @ResponseBody CoursePageDTO listarTicketsPorTipo(@RequestParam TipoTicket type) {
+//        return ticketService.findAllByTypeTicket(type);
+//    }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
