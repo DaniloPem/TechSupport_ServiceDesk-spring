@@ -1,6 +1,9 @@
 package projetotechsupport.apitechsupport.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +20,12 @@ public class TicketController {
 
     private final TicketService ticketService;
 
-//    @GetMapping
-//    public @ResponseBody CoursePageDTO listarTicketsPorTipo(@RequestParam TipoTicket type) {
-//        return ticketService.findAllByTypeTicket(type);
-//    }
+    @GetMapping
+    public @ResponseBody CoursePageDTO listarTicketsPorTipo(@RequestParam TipoTicket type,
+                                                            @RequestParam(defaultValue = "0") @PositiveOrZero int page,
+                                                            @RequestParam(defaultValue = "30") @Positive @Max(30) int pageSize) {
+        return ticketService.findAllByTypeTicket(type, page, pageSize);
+    }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
