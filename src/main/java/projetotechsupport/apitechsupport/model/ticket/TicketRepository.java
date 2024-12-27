@@ -22,8 +22,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             JOIN ticket.categoriaReportada categoriaReportada
             JOIN ticket.categoriaAfetada categoriaAfetada
             JOIN ticket.grupoAssignado grupoAssignado
-            JOIN ticket.tag tag
-            JOIN ticket.subtag subtag
+            LEFT JOIN ticket.tag tag
+            LEFT JOIN ticket.subtag subtag
             WHERE ticket.tipo = :tipoTicket AND (
             ticket.numeroTicketSegundoTipo LIKE :filtro OR
             ticket.titulo LIKE :filtro OR
@@ -35,8 +35,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             categoriaReportada.nome LIKE :filtro OR
             categoriaAfetada.nome LIKE :filtro OR
             grupoAssignado.nome LIKE :filtro OR
-            tag.nome LIKE :filtro OR
-            subtag.nome LIKE :filtro
+            COALESCE(tag.nome, '') LIKE :filtro OR
+            COALESCE(subtag.nome, '') LIKE :filtro
             )
             """)
     Page<Ticket> findByTipoAndFiltro(TipoTicket tipoTicket, String filtro, Pageable pageable);
