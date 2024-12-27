@@ -22,9 +22,10 @@ public class TicketController {
 
     @GetMapping
     public @ResponseBody CoursePageDTO listarTicketsPorTipo(@RequestParam TipoTicket type,
+                                                            @RequestParam String filtro,
                                                             @RequestParam(defaultValue = "0") @PositiveOrZero int page,
                                                             @RequestParam(defaultValue = "30") @Positive @Max(30) int pageSize) {
-        return ticketService.findAllByTypeTicket(type, page, pageSize);
+        return ticketService.findAllByTypeTicket(type, filtro, page, pageSize);
     }
 
     @PostMapping

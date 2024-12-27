@@ -39,8 +39,8 @@ public class TicketService {
     private final CategoriaRepository categoriaRepository;
     private final GerenciadorNumeroTicketComponent gerenciadorNumeroTicketComponent;
 
-    public CoursePageDTO findAllByTypeTicket(TipoTicket tipoTicket, @PositiveOrZero int page, @Positive @Max(30) int pageSize) {
-        Page<Ticket> pageTicketsByTipo = ticketRepository.findByTipo(tipoTicket, PageRequest.of(page, pageSize));
+    public CoursePageDTO findAllByTypeTicket(TipoTicket tipoTicket, String filtro, @PositiveOrZero int page, @Positive @Max(30) int pageSize) {
+        Page<Ticket> pageTicketsByTipo = ticketRepository.findByTipoAndFiltro(tipoTicket, '%' + filtro + '%' ,PageRequest.of(page, pageSize));
         List<DadosVisualizacaoTicketByTipo> tickets = pageTicketsByTipo.map(DadosVisualizacaoTicketByTipo::new).toList();
         return new CoursePageDTO(tickets, pageTicketsByTipo.getTotalElements(), pageTicketsByTipo.getTotalPages());
     }
