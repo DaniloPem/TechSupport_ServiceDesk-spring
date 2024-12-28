@@ -3,6 +3,7 @@ package projetotechsupport.apitechsupport.model.ticket;
 import java.time.LocalDateTime;
 
 public record DadosVisualizacaoTicketByTipo(
+        Long id,
         Status status,
         LocalDateTime dataEHorarioDeCriacao,
         String numeroTicketSegundoTipo,
@@ -18,7 +19,7 @@ public record DadosVisualizacaoTicketByTipo(
         String subtagNome
 ) {
     public DadosVisualizacaoTicketByTipo(Ticket ticket) {
-        this(ticket.getStatus(),
+        this(ticket.getId(), ticket.getStatus(),
                 ticket.getDataEHorarioDeCriacao(),
                 ticket.getNumeroTicketSegundoTipo(),
                 ticket.getTitulo(),
