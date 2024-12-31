@@ -32,4 +32,6 @@ public class Usuario {
     inverseJoinColumns = @JoinColumn(name = "grupo_assignado_id"))
     private List<GrupoAssignado> gruposAssignados;
 
+    private boolean administrador;
+
 }
