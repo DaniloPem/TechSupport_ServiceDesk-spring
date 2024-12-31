@@ -14,12 +14,16 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false, length = 7)
     private String codigo;
 
+    @Column(nullable = false, length = 50)
     private String nome;
 
+    @Column(nullable = false, length = 50, unique = true)
     private String email;
 
+    @Column(length = 20)
     private String telefone;
 
     @ManyToMany(fetch = FetchType.LAZY)
