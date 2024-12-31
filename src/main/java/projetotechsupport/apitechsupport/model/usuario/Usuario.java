@@ -2,12 +2,14 @@ package projetotechsupport.apitechsupport.model.usuario;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
 
 import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Usuario {
 
     @Id
@@ -34,4 +36,15 @@ public class Usuario {
 
     private boolean administrador;
 
+    public Usuario(DadosCadastroUsuario dadosUsuario, List<GrupoAssignado> gruposAssignados) {
+        this.codigo = dadosUsuario.codigo();
+        this.nome = dadosUsuario.nome();
+        this.email = dadosUsuario.email();
+        this.telefone = dadosUsuario.email();
+        this.gruposAssignados = gruposAssignados;
+    }
+
+    public List<String> getNomeGruposAssignados() { return gruposAssignados == null ? null : gruposAssignados.stream()
+                    .map(GrupoAssignado::getNome).toList();
+    }
 }
