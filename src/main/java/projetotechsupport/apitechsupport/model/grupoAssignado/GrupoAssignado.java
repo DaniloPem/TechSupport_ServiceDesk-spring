@@ -16,6 +16,7 @@ public class GrupoAssignado {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false, length = 50)
     private String nome;
 
     @ManyToMany(fetch = FetchType.LAZY)
