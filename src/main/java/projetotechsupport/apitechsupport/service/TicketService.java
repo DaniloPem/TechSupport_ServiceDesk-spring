@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projetotechsupport.apitechsupport.component.GerenciadorNumeroTicketComponent;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
@@ -39,10 +38,10 @@ public class TicketService {
     private final CategoriaRepository categoriaRepository;
     private final GerenciadorNumeroTicketComponent gerenciadorNumeroTicketComponent;
 
-    public CoursePageDTO findAllByTypeTicket(TipoTicket tipoTicket, String filtro, @PositiveOrZero int page, @Positive @Max(30) int pageSize) {
+    public TicketPageDTO findAllByTypeTicket(TipoTicket tipoTicket, String filtro, @PositiveOrZero int page, @Positive @Max(30) int pageSize) {
         Page<Ticket> pageTicketsByTipo = ticketRepository.findByTipoAndFiltro(tipoTicket, '%' + filtro + '%' ,PageRequest.of(page, pageSize));
         List<DadosVisualizacaoTicketByTipo> tickets = pageTicketsByTipo.map(DadosVisualizacaoTicketByTipo::new).toList();
-        return new CoursePageDTO(tickets, pageTicketsByTipo.getTotalElements(), pageTicketsByTipo.getTotalPages());
+        return new TicketPageDTO(tickets, pageTicketsByTipo.getTotalElements(), pageTicketsByTipo.getTotalPages());
     }
 
     public Ticket create(DadosCadastroTicket dadosTicket) {

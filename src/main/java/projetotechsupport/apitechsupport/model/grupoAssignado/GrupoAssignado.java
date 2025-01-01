@@ -2,6 +2,7 @@ package projetotechsupport.apitechsupport.model.grupoAssignado;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
 import projetotechsupport.apitechsupport.model.usuario.Usuario;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class GrupoAssignado {
 
     @Id
@@ -28,6 +30,11 @@ public class GrupoAssignado {
     @ManyToMany(mappedBy = "gruposAssignados", fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
 
+    public GrupoAssignado(DadosCadastroGrupoAssignado dadosCadastroGrupoAssignado, List<Categoria> categorias, List<Usuario> usuarios) {
+        this.nome = dadosCadastroGrupoAssignado.nome();
+        this.categorias = categorias;
+        this.usuarios = usuarios;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -41,5 +48,9 @@ public class GrupoAssignado {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public List<String> getNomeCategorias() { return categorias.stream().map(Categoria::getNome).toList();}
+
+    public List<String> getNomeUsuarios() { return usuarios.stream().map(Usuario::getNome).toList();}
 
 }

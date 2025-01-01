@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.ticket.*;
 import projetotechsupport.apitechsupport.service.TicketService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/tickets")
 @AllArgsConstructor
@@ -21,7 +19,7 @@ public class TicketController {
     private final TicketService ticketService;
 
     @GetMapping
-    public @ResponseBody CoursePageDTO listarTicketsPorTipo(@RequestParam TipoTicket type,
+    public @ResponseBody TicketPageDTO listarTicketsPorTipo(@RequestParam TipoTicket type,
                                                             @RequestParam String filter,
                                                             @RequestParam(defaultValue = "0") @PositiveOrZero int page,
                                                             @RequestParam(defaultValue = "30") @Positive @Max(30) int pageSize) {

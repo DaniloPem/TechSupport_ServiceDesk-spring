@@ -13,7 +13,6 @@ public record DadosVisualizacaoAllUsuarios(
         List<String> gruposAssignados,
         Boolean administrador
 ) {
-
     public DadosVisualizacaoAllUsuarios(Usuario usuario) {
         this(usuario.getId(),
                 usuario.getCodigo(),
