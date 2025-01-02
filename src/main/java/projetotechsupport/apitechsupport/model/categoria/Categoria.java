@@ -2,6 +2,7 @@ package projetotechsupport.apitechsupport.model.categoria;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
 import projetotechsupport.apitechsupport.model.tag.Tag;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Categoria {
 
     @Id
