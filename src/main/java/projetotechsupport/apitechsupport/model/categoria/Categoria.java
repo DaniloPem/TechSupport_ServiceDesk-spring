@@ -24,4 +24,15 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tag> tag;
 
+    public Categoria(DadosCadastroCategoria dadosCadastroCategoria, List<GrupoAssignado> gruposAssignados, List<Tag> tags) {
+        this.nome = dadosCadastroCategoria.nome();
+        this.gruposAssignados = gruposAssignados;
+        this.tag = tags;
+    }
+
+    public List<String> getNomeGruposAssignados() { return gruposAssignados.stream().map(GrupoAssignado::getNome).toList();}
+    public List<Long> getIdTag() { return tag == null ? null : tag.stream().map(Tag::getId).toList();}
+
+    public List<String> getNomeTag() { return tag == null ? null : tag.stream().map(Tag::getNome).toList();}
+
 }
