@@ -18,8 +18,8 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
             JOIN categoria.gruposAssignados gruposAssignados
             LEFT JOIN categoria.tag tag
             WHERE categoria.nome LIKE :filtro OR
-            gruposAssignados.nome LIKE:filtro OR
-            tag.nome LIKE:filtro
+            gruposAssignados.nome LIKE :filtro OR
+            COALESCE(tag.nome, '') LIKE :filtro
             """)
     Page<Categoria> findByFiltro(String filtro, Pageable pageable);
 }
