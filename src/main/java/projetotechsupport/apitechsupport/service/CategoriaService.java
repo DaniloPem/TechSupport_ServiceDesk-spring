@@ -1,6 +1,7 @@
 package projetotechsupport.apitechsupport.service;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class CategoriaService {
                 .toList();
     }
 
-    public CategoriaPageDTO findAllCategorias(String filtro, @PositiveOrZero int page, @Positive int pageSize) {
+    public CategoriaPageDTO findAllCategorias(String filtro, @PositiveOrZero int page, @Positive @Max(30) int pageSize) {
         Page<Categoria> pageCategorias = categoriaRepository.findByFiltro('%' + filtro + '%', PageRequest.of(page, pageSize));
         List<DadosVisualizacaoAllCategorias> categorias = pageCategorias.map(DadosVisualizacaoAllCategorias::new).toList();
         return new CategoriaPageDTO(categorias, pageCategorias.getTotalElements(), pageCategorias.getTotalPages());

@@ -1,6 +1,7 @@
 package projetotechsupport.apitechsupport.service;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class GrupoAssignadoService {
         return gruposAssignados.stream().map(grupoAssignado -> new IdNomeDTO(grupoAssignado.getId(), grupoAssignado.getNome())).toList();
     }
 
-    public GrupoAssignadoPageDTO findAllGruposAssignados(String filtro, @PositiveOrZero int page, @Positive int pageSize) {
+    public GrupoAssignadoPageDTO findAllGruposAssignados(String filtro, @PositiveOrZero int page, @Positive @Max(30) int pageSize) {
         Page<GrupoAssignado> pageGrupoAssignados = grupoAssignadoRepository.findByFiltro('%' + filtro + '%', PageRequest.of(page, pageSize));
         List<DadosVisualizacaoAllGruposAssignados> gruposAssignados = pageGrupoAssignados.map(DadosVisualizacaoAllGruposAssignados::new).toList();
         return new GrupoAssignadoPageDTO(gruposAssignados, pageGrupoAssignados.getTotalElements(), pageGrupoAssignados.getTotalPages());
