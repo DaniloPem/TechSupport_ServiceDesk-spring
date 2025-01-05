@@ -8,10 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import projetotechsupport.apitechsupport.model.grupoAssignado.DadosVisualizacaoAllGruposAssignados;
-import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
-import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoPageDTO;
-import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRepository;
+import projetotechsupport.apitechsupport.model.categoria.Categoria;
+import projetotechsupport.apitechsupport.model.categoria.CategoriaRecord;
+import projetotechsupport.apitechsupport.model.grupoAssignado.*;
 import projetotechsupport.apitechsupport.shared.dtos.IdNomeDTO;
 
 import java.util.List;
@@ -32,6 +31,13 @@ public class GrupoAssignadoService {
         Page<GrupoAssignado> pageGrupoAssignados = grupoAssignadoRepository.findByFiltro('%' + filtro + '%', PageRequest.of(page, pageSize));
         List<DadosVisualizacaoAllGruposAssignados> gruposAssignados = pageGrupoAssignados.map(DadosVisualizacaoAllGruposAssignados::new).toList();
         return new GrupoAssignadoPageDTO(gruposAssignados, pageGrupoAssignados.getTotalElements(), pageGrupoAssignados.getTotalPages());
+    }
+
+    public List<GrupoAssignadoRecord> findByNomeLike(String namePattern) {
+        List<GrupoAssignado> grupoAssignados = grupoAssignadoRepository.findByNomeLike(namePattern + "%");
+        return grupoAssignados.stream()
+                .map(GrupoAssignadoRecord::new)
+                .toList();
     }
 
 }

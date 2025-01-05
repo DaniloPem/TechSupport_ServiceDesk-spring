@@ -23,4 +23,6 @@ public interface GrupoAssignadoRepository extends JpaRepository<GrupoAssignado, 
             usuarios.nome LIKE :filtro
             """)
     Page<GrupoAssignado> findByFiltro(String filtro, Pageable pageable);
+
+    List<GrupoAssignado> findByNomeLike(String namePattern);
 }
