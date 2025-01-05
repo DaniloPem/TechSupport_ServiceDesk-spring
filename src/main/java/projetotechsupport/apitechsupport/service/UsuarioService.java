@@ -8,16 +8,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
+import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRepository;
 import projetotechsupport.apitechsupport.model.usuario.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final GrupoAssignadoRepository grupoAssignadoRepository;
 
     public List<UsuarioRecord> findByCodigoLike(String codigo) {
         if (codigo.isEmpty()) return Collections.emptyList();
@@ -29,5 +34,37 @@ public class UsuarioService {
         Page<Usuario> pageUsuarios = usuarioRepository.findByFiltro('%' + filtro + '%', PageRequest.of(page, pageSize));
         List<DadosVisualizacaoAllUsuarios> usuarios = pageUsuarios.map(DadosVisualizacaoAllUsuarios::new).toList();
         return new UsuarioPageDTO(usuarios, pageUsuarios.getTotalElements(), pageUsuarios.getTotalPages());
+    }
+
+    public Usuario create(DadosCadastroUsuario dadosCadastroUsuario) {
+        List<GrupoAssignado> gruposAssignados = getGruposAssignados(dadosCadastroUsuario.gruposAssignadosId());
+        Usuario usuario = new Usuario(dadosCadastroUsuario, gruposAssignados, getCodigoDoUsuario());
+        return usuarioRepository.save(usuario);
+    }
+
+    private List<GrupoAssignado> getGruposAssignados(List<Long> gruposAssignadosId) {
+        return gruposAssignadosId != null ?
+                grupoAssignadoRepository.findAllById(gruposAssignadosId) :
+                Collections.emptyList();
+    }
+
+    public String getCodigoDoUsuario() {
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String numeros = "0123456789";
+        Random random = new Random();
+        StringBuilder codigoGerado = new StringBuilder();
+
+        do {
+            for (int i = 0; i < 7; i++) {
+                if (i % 2 == 0) {
+                    codigoGerado.append(letras.charAt(random.nextInt(letras.length() - 1)));
+                } else {
+                    String conjunto = random.nextBoolean() ? letras : numeros;
+                    codigoGerado.append(conjunto.charAt(random.nextInt(conjunto.length() - 1)));
+                }
+            }
+        } while (usuarioRepository.findByCodigo(codigoGerado.toString()).isPresent());
+
+        return codigoGerado.toString();
     }
 }

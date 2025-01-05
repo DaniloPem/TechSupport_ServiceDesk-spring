@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface
@@ -23,4 +24,6 @@ UsuarioRepository extends JpaRepository<Usuario, Long> {
             COALESCE(gruposAssignados.nome, '') LIKE:filtro
             """)
     Page<Usuario> findByFiltro(String filtro, Pageable pageable);
+
+    Optional<Usuario> findByCodigo(String codigo);
 }

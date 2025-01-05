@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
+import projetotechsupport.apitechsupport.service.UsuarioService;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 7)
@@ -36,12 +37,13 @@ public class Usuario {
 
     private boolean administrador;
 
-    public Usuario(DadosCadastroUsuario dadosUsuario, List<GrupoAssignado> gruposAssignados) {
-        this.codigo = dadosUsuario.codigo();
+    public Usuario(DadosCadastroUsuario dadosUsuario, List<GrupoAssignado> gruposAssignados, String codigoUsuario) {
+        this.codigo = codigoUsuario;
         this.nome = dadosUsuario.nome();
         this.email = dadosUsuario.email();
-        this.telefone = dadosUsuario.email();
+        this.telefone = dadosUsuario.telefone();
         this.gruposAssignados = gruposAssignados;
+        this.administrador = dadosUsuario.administrador();
     }
 
     public List<String> getNomeGruposAssignados() { return gruposAssignados == null ? null : gruposAssignados.stream()
