@@ -5,11 +5,14 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRepository;
+import projetotechsupport.apitechsupport.model.ticket.DadosVisualizacaoTicketById;
+import projetotechsupport.apitechsupport.model.ticket.Ticket;
 import projetotechsupport.apitechsupport.model.usuario.*;
 
 import java.util.Collections;
@@ -24,6 +27,11 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final GrupoAssignadoRepository grupoAssignadoRepository;
 
+    public UsuarioRecord getUsuarioById(Long id) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        Usuario usuario = usuarioOptional.orElseThrow(() -> new DataIntegrityViolationException("USUÁRIO NÃO EXISTE"));
+        return new UsuarioRecord(usuario);
+    }
     public List<UsuarioRecord> findByCodigoLike(String codigo) {
         if (codigo.isEmpty()) return Collections.emptyList();
         List<Usuario> usuarios = usuarioRepository.findByCodigoLike('%' + codigo + '%');

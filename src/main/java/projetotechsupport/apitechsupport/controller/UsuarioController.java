@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
+import projetotechsupport.apitechsupport.model.ticket.DadosVisualizacaoTicketById;
 import projetotechsupport.apitechsupport.model.usuario.DadosCadastroUsuario;
 import projetotechsupport.apitechsupport.model.usuario.UsuarioPageDTO;
 import projetotechsupport.apitechsupport.model.usuario.UsuarioRecord;
@@ -28,6 +29,11 @@ public class UsuarioController {
                                                           @RequestParam(defaultValue = "0") @PositiveOrZero int page,
                                                           @RequestParam(defaultValue = "30") @Positive @Max(30) int pageSize) {
         return usuarioService.findAllUser(filter, page, pageSize);
+    }
+
+    @GetMapping("/{id}")
+    public @ResponseBody UsuarioRecord getUsuarioById (@PathVariable Long id) {
+        return usuarioService.getUsuarioById(id);
     }
 
     @GetMapping("/por-codigo")
