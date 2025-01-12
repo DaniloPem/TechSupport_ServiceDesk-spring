@@ -6,6 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.categoria.CategoriaRecord;
+import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoPageDTO;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRecord;
 import projetotechsupport.apitechsupport.service.GrupoAssignadoService;
@@ -35,5 +36,10 @@ public class GrupoAssignadoController {
     @GetMapping("/por-nome")
     public @ResponseBody List<GrupoAssignadoRecord> listar(@RequestParam(value = "nome") String namePattern) {
         return grupoAssignadoService.findByNomeLike(namePattern);
+    }
+
+    @GetMapping("/{ids}")
+    public List<GrupoAssignadoRecord> getGruposByIds(@PathVariable List<Long> ids) {
+        return grupoAssignadoService.findByIds(ids);
     }
 }

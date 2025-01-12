@@ -25,4 +25,6 @@ public interface GrupoAssignadoRepository extends JpaRepository<GrupoAssignado, 
     Page<GrupoAssignado> findByFiltro(String filtro, Pageable pageable);
 
     List<GrupoAssignado> findByNomeLike(String namePattern);
+
+    List<GrupoAssignado> findByIdIn(List<Long> Ids);
 }

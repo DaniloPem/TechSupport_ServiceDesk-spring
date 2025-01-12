@@ -40,4 +40,9 @@ public class GrupoAssignadoService {
                 .toList();
     }
 
+    public List<GrupoAssignadoRecord> findByIds(List<Long> ids) {
+        List<GrupoAssignado> grupoAssignados = grupoAssignadoRepository.findByIdIn(ids);
+        return grupoAssignados.stream().map(GrupoAssignadoRecord::new).toList();
+    }
+
 }
