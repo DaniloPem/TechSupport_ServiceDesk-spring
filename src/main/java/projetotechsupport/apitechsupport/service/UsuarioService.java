@@ -50,6 +50,18 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    public Usuario atualizarUsuario(DadosCadastroUsuario dadosUsuario, Long id) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        Usuario usuario = usuarioOptional.orElseThrow(() -> new DataIntegrityViolationException("USUÁRIO NÃO EXISTE."));
+        usuario.setNome(dadosUsuario.nome());
+        usuario.setEmail(dadosUsuario.email());
+        usuario.setTelefone(dadosUsuario.telefone());
+        usuario.setAdministrador(dadosUsuario.administrador());
+        List<GrupoAssignado> grupoAssignados = getGruposAssignados(dadosUsuario.gruposAssignadosId());
+        usuario.setGruposAssignados(grupoAssignados);
+        return usuario;
+    }
+
     private List<GrupoAssignado> getGruposAssignados(List<Long> gruposAssignadosId) {
         return gruposAssignadosId != null ?
                 grupoAssignadoRepository.findAllById(gruposAssignadosId) :
