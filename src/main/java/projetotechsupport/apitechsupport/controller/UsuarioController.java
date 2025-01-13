@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.ticket.DadosCadastroTicket;
 import projetotechsupport.apitechsupport.model.ticket.DadosVisualizacaoTicketById;
 import projetotechsupport.apitechsupport.model.usuario.DadosCadastroUsuario;
+import projetotechsupport.apitechsupport.model.usuario.DadosVisualizacaoUsuario;
 import projetotechsupport.apitechsupport.model.usuario.UsuarioPageDTO;
 import projetotechsupport.apitechsupport.model.usuario.UsuarioRecord;
 import projetotechsupport.apitechsupport.service.UsuarioService;
@@ -32,7 +33,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody UsuarioRecord getUsuarioById (@PathVariable Long id) {
+    public @ResponseBody DadosVisualizacaoUsuario getUsuarioById (@PathVariable Long id) {
         return usuarioService.getUsuarioById(id);
     }
 

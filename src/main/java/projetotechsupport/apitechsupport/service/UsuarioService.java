@@ -27,10 +27,10 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final GrupoAssignadoRepository grupoAssignadoRepository;
 
-    public UsuarioRecord getUsuarioById(Long id) {
+    public DadosVisualizacaoUsuario getUsuarioById(Long id) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
         Usuario usuario = usuarioOptional.orElseThrow(() -> new DataIntegrityViolationException("USUÁRIO NÃO EXISTE"));
-        return new UsuarioRecord(usuario);
+        return new DadosVisualizacaoUsuario(usuario);
     }
     public List<UsuarioRecord> findByCodigoLike(String codigo) {
         if (codigo.isEmpty()) return Collections.emptyList();

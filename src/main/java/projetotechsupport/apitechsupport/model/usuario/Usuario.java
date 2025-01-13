@@ -1,6 +1,7 @@
 package projetotechsupport.apitechsupport.model.usuario;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
@@ -23,6 +24,7 @@ public class Usuario {
     @Column(nullable = false, length = 50)
     private String nome;
 
+    @Email
     @Column(nullable = false, length = 50, unique = true)
     private String email;
 
@@ -48,5 +50,9 @@ public class Usuario {
 
     public List<String> getNomeGruposAssignados() { return gruposAssignados == null ? null : gruposAssignados.stream()
                     .map(GrupoAssignado::getNome).toList();
+    }
+
+    public List<Long> getIdGruposAssignados() { return gruposAssignados == null ? null : gruposAssignados.stream()
+            .map(GrupoAssignado::getId).toList();
     }
 }
