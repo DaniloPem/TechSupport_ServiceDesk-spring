@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.categoria.CategoriaRecord;
@@ -12,6 +13,7 @@ import projetotechsupport.apitechsupport.model.grupoAssignado.DadosCadastroGrupo
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoPageDTO;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRecord;
+import projetotechsupport.apitechsupport.model.usuario.DadosCadastroUsuario;
 import projetotechsupport.apitechsupport.service.GrupoAssignadoService;
 import projetotechsupport.apitechsupport.shared.dtos.IdNomeDTO;
 
@@ -44,6 +46,12 @@ public class GrupoAssignadoController {
     @GetMapping("/{ids}")
     public List<GrupoAssignadoRecord> getGruposByIds(@PathVariable List<Long> ids) {
         return grupoAssignadoService.findByIds(ids);
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<Long> create(@RequestBody @Valid DadosCadastroGrupoAssignado dadosCadastroGrupoAssignado) {
+        return ResponseEntity.ok(grupoAssignadoService.criarGrupo(dadosCadastroGrupoAssignado).getId());
     }
 
     @PutMapping("/{id}")

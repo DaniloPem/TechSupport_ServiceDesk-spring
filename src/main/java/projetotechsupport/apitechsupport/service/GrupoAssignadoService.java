@@ -54,6 +54,12 @@ public class GrupoAssignadoService {
         return grupoAssignados.stream().map(GrupoAssignadoRecord::new).toList();
     }
 
+    public GrupoAssignado criarGrupo(DadosCadastroGrupoAssignado dadosCadastroGrupoAssignado) {
+        List<Categoria> categorias = getCategorias(dadosCadastroGrupoAssignado.categoriasId());
+        GrupoAssignado grupoAssignado = new GrupoAssignado(dadosCadastroGrupoAssignado, categorias);
+        return grupoAssignadoRepository.save(grupoAssignado);
+    }
+
     public GrupoAssignado atualizarGrupo(DadosCadastroGrupoAssignado dadosCadastroGrupoAssignado, Long id) {
         Optional<GrupoAssignado> grupoAssignadoOptional = grupoAssignadoRepository.findById(id);
         GrupoAssignado grupoAssignado = grupoAssignadoOptional.orElseThrow(() -> new DataIntegrityViolationException("GRUPO NÃO EXISTE."));
