@@ -59,6 +59,7 @@ public class UsuarioService {
         usuario.setAdministrador(dadosUsuario.administrador());
         List<GrupoAssignado> grupoAssignados = getGruposAssignados(dadosUsuario.gruposAssignadosId());
         usuario.setGruposAssignados(grupoAssignados);
+        usuarioRepository.save(usuario);
         return usuario;
     }
 

@@ -1,6 +1,7 @@
 package projetotechsupport.apitechsupport.model.grupoAssignado;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
@@ -30,10 +31,9 @@ public class GrupoAssignado {
     @ManyToMany(mappedBy = "gruposAssignados", fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
 
-    public GrupoAssignado(DadosCadastroGrupoAssignado dadosCadastroGrupoAssignado, List<Categoria> categorias, List<Usuario> usuarios) {
+    public GrupoAssignado(DadosCadastroGrupoAssignado dadosCadastroGrupoAssignado, List<Categoria> categorias) {
         this.nome = dadosCadastroGrupoAssignado.nome();
         this.categorias = categorias;
-        this.usuarios = usuarios;
     }
 
     @Override
