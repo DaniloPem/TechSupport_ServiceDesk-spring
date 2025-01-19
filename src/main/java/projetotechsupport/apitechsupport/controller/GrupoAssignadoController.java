@@ -59,4 +59,10 @@ public class GrupoAssignadoController {
         grupoAssignadoService.atualizarGrupo(dadosCadastroGrupoAssignado, id);
         return ResponseEntity.ok(id);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deshabilitar(@PathVariable Long id) {
+        grupoAssignadoService.deshabilitar(id);
+        return ResponseEntity.noContent().build();
+    }
 }

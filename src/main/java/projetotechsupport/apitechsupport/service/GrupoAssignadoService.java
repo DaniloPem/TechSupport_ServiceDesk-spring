@@ -74,4 +74,9 @@ public class GrupoAssignadoService {
         return categoriaRepository.findAllById(categoriasId);
     }
 
+    public void deshabilitar(Long id) {
+        GrupoAssignado grupoAssignado = grupoAssignadoRepository.getReferenceById(id);
+        grupoAssignado.desabilitar();
+    }
+
 }

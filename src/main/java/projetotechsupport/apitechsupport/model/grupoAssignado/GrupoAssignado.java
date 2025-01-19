@@ -22,7 +22,7 @@ public class GrupoAssignado {
     @Column(nullable = false, length = 50)
     private String nome;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "categoria_grupo_assignado",
                 joinColumns = @JoinColumn(name = "grupo_assignado_id"),
                 inverseJoinColumns = @JoinColumn(name = "categoria_id"))
@@ -36,6 +36,7 @@ public class GrupoAssignado {
     public GrupoAssignado(DadosCadastroGrupoAssignado dadosCadastroGrupoAssignado, List<Categoria> categorias) {
         this.nome = dadosCadastroGrupoAssignado.nome();
         this.categorias = categorias;
+        this.ativo = true;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class GrupoAssignado {
 
     public List<String> getNomeCategorias() { return categorias.stream().map(Categoria::getNome).toList();}
     public List<String> getNomeUsuarios() { return usuarios.stream().map(Usuario::getNome).toList();}
-    public void excluir() {
+    public void desabilitar() {
         this.ativo = false;
     }
 
