@@ -31,6 +31,8 @@ public class GrupoAssignado {
     @ManyToMany(mappedBy = "gruposAssignados", fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
 
+    private boolean ativo;
+
     public GrupoAssignado(DadosCadastroGrupoAssignado dadosCadastroGrupoAssignado, List<Categoria> categorias) {
         this.nome = dadosCadastroGrupoAssignado.nome();
         this.categorias = categorias;

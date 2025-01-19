@@ -18,4 +18,6 @@ public class Subtag {
     @ManyToOne
     @JoinColumn(name = "tag_id")
     private Tag tag;
+
+    private boolean ativo;
 }

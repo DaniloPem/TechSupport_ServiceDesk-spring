@@ -39,6 +39,8 @@ public class Usuario {
 
     private boolean administrador;
 
+    private boolean ativo;
+
     public Usuario(DadosCadastroUsuario dadosUsuario, List<GrupoAssignado> gruposAssignados, String codigoUsuario) {
         this.codigo = codigoUsuario;
         this.nome = dadosUsuario.nome();

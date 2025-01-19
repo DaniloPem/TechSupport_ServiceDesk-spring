@@ -26,6 +26,8 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tag> tag;
 
+    private boolean ativo;
+
     public Categoria(DadosCadastroCategoria dadosCadastroCategoria, List<GrupoAssignado> gruposAssignados, List<Tag> tags) {
         this.nome = dadosCadastroCategoria.nome();
         this.gruposAssignados = gruposAssignados;

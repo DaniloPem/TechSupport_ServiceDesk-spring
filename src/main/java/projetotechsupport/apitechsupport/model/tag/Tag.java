@@ -29,6 +29,8 @@ public class Tag {
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subtag> subtags;
 
+    private boolean ativo;
+
     public Tag(DadosCadastroTag dadosCadastroTag, Categoria categoria, List<Subtag> subtags) {
         this.nome = dadosCadastroTag.nome();
         this.categoria = categoria;
