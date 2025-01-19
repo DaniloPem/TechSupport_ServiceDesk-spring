@@ -38,4 +38,7 @@ public class Tag {
     }
 
     public List<String> getNomeSubTags() {return subtags == null ? null : subtags.stream().map(Subtag::getNome).toList();}
+    public void excluir() {
+        this.ativo = false;
+    }
 }

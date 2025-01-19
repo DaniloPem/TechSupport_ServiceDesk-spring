@@ -36,7 +36,9 @@ public class Categoria {
 
     public List<String> getNomeGruposAssignados() { return gruposAssignados.stream().map(GrupoAssignado::getNome).toList();}
     public List<Long> getIdTag() { return tag == null ? null : tag.stream().map(Tag::getId).toList();}
-
     public List<String> getNomeTag() { return tag == null ? null : tag.stream().map(Tag::getNome).toList();}
+    public void excluir() {
+        this.ativo = false;
+    }
 
 }

@@ -52,7 +52,9 @@ public class GrupoAssignado {
     }
 
     public List<String> getNomeCategorias() { return categorias.stream().map(Categoria::getNome).toList();}
-
     public List<String> getNomeUsuarios() { return usuarios.stream().map(Usuario::getNome).toList();}
+    public void excluir() {
+        this.ativo = false;
+    }
 
 }

@@ -57,4 +57,7 @@ public class Usuario {
     public List<Long> getIdGruposAssignados() { return gruposAssignados == null ? null : gruposAssignados.stream()
             .map(GrupoAssignado::getId).toList();
     }
+    public void excluir() {
+        this.ativo = false;
+    }
 }

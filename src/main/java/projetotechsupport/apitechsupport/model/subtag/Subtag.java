@@ -20,4 +20,8 @@ public class Subtag {
     private Tag tag;
 
     private boolean ativo;
+
+    public void excluir() {
+        this.ativo = false;
+    }
 }
