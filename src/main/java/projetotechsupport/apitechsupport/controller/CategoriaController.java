@@ -1,14 +1,16 @@
 package projetotechsupport.apitechsupport.controller;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import projetotechsupport.apitechsupport.model.categoria.Categoria;
-import projetotechsupport.apitechsupport.model.categoria.CategoriaPageDTO;
-import projetotechsupport.apitechsupport.model.categoria.CategoriaRecord;
-import projetotechsupport.apitechsupport.model.categoria.CategoriaRepository;
+import projetotechsupport.apitechsupport.model.categoria.*;
+import projetotechsupport.apitechsupport.model.grupoAssignado.DadosCadastroGrupoAssignado;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoPageDTO;
 import projetotechsupport.apitechsupport.service.CategoriaService;
 
@@ -30,5 +32,11 @@ public class CategoriaController {
     @GetMapping("/por-nome")
     public @ResponseBody List<CategoriaRecord> listar(@RequestParam(value = "nome") String namePattern) {
         return categoriaService.findByNomeLike(namePattern);
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<Long> criar(@RequestBody @Valid DadosCadastroCategoria dadosCadastroCategoria) {
+        return ResponseEntity.ok(categoriaService.criar(dadosCadastroCategoria).getId());
     }
 }

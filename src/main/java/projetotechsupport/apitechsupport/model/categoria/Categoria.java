@@ -14,7 +14,7 @@ import java.util.List;
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 50, unique = true)
@@ -28,9 +28,8 @@ public class Categoria {
 
     private boolean ativo;
 
-    public Categoria(DadosCadastroCategoria dadosCadastroCategoria, List<GrupoAssignado> gruposAssignados, List<Tag> tags) {
+    public Categoria(DadosCadastroCategoria dadosCadastroCategoria, List<Tag> tags) {
         this.nome = dadosCadastroCategoria.nome();
-        this.gruposAssignados = gruposAssignados;
         this.tag = tags;
     }
 

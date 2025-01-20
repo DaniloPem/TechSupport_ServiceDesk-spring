@@ -29,7 +29,6 @@ public class GrupoAssignadoService {
 
     private final GrupoAssignadoRepository grupoAssignadoRepository;
     private final CategoriaRepository categoriaRepository;
-    private final UsuarioRepository usuarioRepository;
 
     public List<IdNomeDTO> findByCategoriaId(Long categoriaId) {
         List<GrupoAssignado> gruposAssignados = grupoAssignadoRepository.findByCategoriasId(categoriaId);

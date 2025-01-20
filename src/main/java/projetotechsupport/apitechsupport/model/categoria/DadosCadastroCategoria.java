@@ -7,8 +7,6 @@ import java.util.List;
 public record DadosCadastroCategoria(
         @NotBlank
         String nome,
-        @NotBlank
-        List<Long> gruposAssignadosId,
         List<Long> tagsId
 ) {
 }

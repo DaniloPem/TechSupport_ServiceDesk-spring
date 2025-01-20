@@ -14,8 +14,12 @@ import projetotechsupport.apitechsupport.model.categoria.*;
 import projetotechsupport.apitechsupport.model.grupoAssignado.DadosVisualizacaoAllGruposAssignados;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
 import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoPageDTO;
+import projetotechsupport.apitechsupport.model.tag.Tag;
+import projetotechsupport.apitechsupport.model.tag.TagRepository;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -23,6 +27,7 @@ import java.util.List;
 public class CategoriaService {
 
     private final CategoriaRepository categoriaRepository;
+    private  final TagRepository tagRepository;
     public List<CategoriaRecord> findByNomeLike(String namePattern) {
         List<Categoria> categorias = categoriaRepository.findByNomeLike(namePattern + "%");
         return categorias.stream()
@@ -34,5 +39,15 @@ public class CategoriaService {
         Page<Categoria> pageCategorias = categoriaRepository.findByFiltro('%' + filtro + '%', PageRequest.of(page, pageSize));
         List<DadosVisualizacaoAllCategorias> categorias = pageCategorias.map(DadosVisualizacaoAllCategorias::new).toList();
         return new CategoriaPageDTO(categorias, pageCategorias.getTotalElements(), pageCategorias.getTotalPages());
+    }
+
+    public Categoria criar(DadosCadastroCategoria dadosCadastroCategoria) {
+        List<Tag> tags = getListTags(dadosCadastroCategoria.tagsId());
+        Categoria categoria = new Categoria(dadosCadastroCategoria, tags);
+        return categoriaRepository.save(categoria);
+    }
+
+    private List<Tag> getListTags(List<Long> tagsId) {
+        return tagsId != null ? tagRepository.findAllById(tagsId) : Collections.emptyList();
     }
 }
