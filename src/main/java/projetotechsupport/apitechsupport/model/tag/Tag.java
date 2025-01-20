@@ -31,10 +31,10 @@ public class Tag {
 
     private boolean ativo;
 
-    public Tag(DadosCadastroTag dadosCadastroTag, Categoria categoria, List<Subtag> subtags) {
+    public Tag(DadosCadastroTag dadosCadastroTag, List<Subtag> subtags) {
         this.nome = dadosCadastroTag.nome();
-        this.categoria = categoria;
         this.subtags = subtags;
+        this.ativo = true;
     }
 
     public List<String> getNomeSubTags() {return subtags == null ? null : subtags.stream().map(Subtag::getNome).toList();}

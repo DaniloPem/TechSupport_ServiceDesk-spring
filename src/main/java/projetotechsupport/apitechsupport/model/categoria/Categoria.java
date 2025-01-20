@@ -31,6 +31,7 @@ public class Categoria {
     public Categoria(DadosCadastroCategoria dadosCadastroCategoria, List<Tag> tags) {
         this.nome = dadosCadastroCategoria.nome();
         this.tag = tags;
+        this.ativo = true;
     }
 
     public List<String> getNomeGruposAssignados() { return gruposAssignados.stream().map(GrupoAssignado::getNome).toList();}

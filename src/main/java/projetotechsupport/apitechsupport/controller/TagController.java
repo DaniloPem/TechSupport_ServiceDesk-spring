@@ -1,10 +1,14 @@
 package projetotechsupport.apitechsupport.controller;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projetotechsupport.apitechsupport.model.tag.DadosCadastroTag;
 import projetotechsupport.apitechsupport.model.tag.Tag;
 import projetotechsupport.apitechsupport.model.tag.TagPageDTO;
 import projetotechsupport.apitechsupport.model.tag.TagRepository;
@@ -33,6 +37,12 @@ public class TagController {
     public @ResponseBody List<IdNomeDTO> listar(@PathVariable Long categoriaId) {
         return tagService.
                 findByCategoriaId(categoriaId);
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<Long> criar(@RequestBody @Valid DadosCadastroTag dadosCadastroTag) {
+        return ResponseEntity.ok(tagService.criar(dadosCadastroTag).getId());
     }
 
 }

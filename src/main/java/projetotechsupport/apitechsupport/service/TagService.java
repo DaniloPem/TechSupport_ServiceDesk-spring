@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 import projetotechsupport.apitechsupport.model.categoria.Categoria;
 import projetotechsupport.apitechsupport.model.categoria.CategoriaPageDTO;
 import projetotechsupport.apitechsupport.model.categoria.DadosVisualizacaoAllCategorias;
-import projetotechsupport.apitechsupport.model.tag.DadosVisualizacaoAllTags;
-import projetotechsupport.apitechsupport.model.tag.Tag;
-import projetotechsupport.apitechsupport.model.tag.TagPageDTO;
-import projetotechsupport.apitechsupport.model.tag.TagRepository;
+import projetotechsupport.apitechsupport.model.subtag.Subtag;
+import projetotechsupport.apitechsupport.model.subtag.SubtagRepository;
+import projetotechsupport.apitechsupport.model.tag.*;
 import projetotechsupport.apitechsupport.shared.dtos.IdNomeDTO;
 
 import java.util.List;
@@ -26,6 +25,7 @@ import java.util.List;
 public class TagService {
 
     private final TagRepository tagRepository;
+    private final SubtagRepository subtagRepository;
 
     public List<IdNomeDTO> findByCategoriaId(Long categoriaId) {
         List<Tag> tags = tagRepository.findByCategoriaId(categoriaId);
@@ -38,5 +38,15 @@ public class TagService {
         Page<Tag> pageTag = tagRepository.findByFiltro('%' + filtro + '%', PageRequest.of(page, pageSize));
         List<DadosVisualizacaoAllTags> tags = pageTag.map(DadosVisualizacaoAllTags::new).toList();
         return new TagPageDTO(tags, pageTag.getTotalElements(), pageTag.getTotalPages());
+    }
+
+    public Tag criar(DadosCadastroTag dadosCadastroTag) {
+        List<Subtag> subtags = getSubtags(dadosCadastroTag.subTagsId());
+        Tag tag = new Tag(dadosCadastroTag, subtags);
+        return tagRepository.save(tag);
+    }
+
+    private List<Subtag> getSubtags(List<Long> subtagsId) {
+        return subtagRepository.findAllById(subtagsId);
     }
 }

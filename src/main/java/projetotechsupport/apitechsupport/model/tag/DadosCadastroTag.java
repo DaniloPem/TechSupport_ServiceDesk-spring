@@ -8,8 +8,6 @@ import java.util.List;
 public record DadosCadastroTag(
         @NotBlank
         String nome,
-        @NotNull
-        Long categoriaId,
         List<Long> subTagsId
 ) {
 }
