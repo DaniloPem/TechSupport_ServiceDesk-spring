@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projetotechsupport.apitechsupport.model.subtag.DadosCadastroSubtag;
 import projetotechsupport.apitechsupport.model.subtag.Subtag;
 import projetotechsupport.apitechsupport.model.subtag.SubtagRepository;
 import projetotechsupport.apitechsupport.service.SubtagService;
@@ -23,5 +24,11 @@ public class SubtagController {
     @GetMapping("/por-tag/{tagId}")
     public @ResponseBody List<IdNomeDTO> listar(@PathVariable Long tagId) {
         return subtagService.findByTagId(tagId);
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<Long> criar(@RequestBody @Valid DadosCadastroSubtag dadosCadastroSubtag) {
+        return ResponseEntity.ok(subtagService.create(dadosCadastroSubtag).getId());
     }
 }

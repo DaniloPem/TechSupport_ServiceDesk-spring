@@ -21,6 +21,11 @@ public class Subtag {
 
     private boolean ativo;
 
+    public Subtag(DadosCadastroSubtag dadosCadastroSubtag) {
+        this.nome = dadosCadastroSubtag.nome();
+        this.ativo = true;
+    }
+
     public void excluir() {
         this.ativo = false;
     }
