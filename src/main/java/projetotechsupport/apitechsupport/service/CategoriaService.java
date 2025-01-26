@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.util.StringUtil;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,18 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
+    public Categoria atualizar(DadosCadastroCategoria dadosCadastroCategoria,Long id) {
+        Optional<Categoria> categoriaOptional = categoriaRepository.findById(id);
+        Categoria categoria = categoriaOptional.orElseThrow(() -> new DataIntegrityViolationException("CATEGORIA NÃO EXISTE."));
+        categoria.setNome(dadosCadastroCategoria.nome());
+        List<Tag> tags =getListTags(dadosCadastroCategoria.tagsId());
+        categoria.setTag(tags);
+        categoriaRepository.save(categoria);
+        return categoria;
+    }
+
     private List<Tag> getListTags(List<Long> tagsId) {
         return tagsId != null ? tagRepository.findAllById(tagsId) : Collections.emptyList();
     }
+
 }

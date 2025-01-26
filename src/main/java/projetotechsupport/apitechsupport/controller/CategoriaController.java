@@ -39,4 +39,10 @@ public class CategoriaController {
     public ResponseEntity<Long> criar(@RequestBody @Valid DadosCadastroCategoria dadosCadastroCategoria) {
         return ResponseEntity.ok(categoriaService.criar(dadosCadastroCategoria).getId());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> atualizar(@PathVariable Long id, @RequestBody @Valid DadosCadastroCategoria dadosCadastroCategoria){
+        categoriaService.atualizar(dadosCadastroCategoria, id);
+        return ResponseEntity.ok(id);
+    }
 }
