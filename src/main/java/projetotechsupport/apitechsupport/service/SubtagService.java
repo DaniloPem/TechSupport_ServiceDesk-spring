@@ -38,4 +38,8 @@ public class SubtagService {
         return subtag;
     }
 
+    public void desabilitar(Long id) {
+        Subtag subtag = subtagRepository.getReferenceById(id);
+        subtag.desabilitar();
+    }
 }

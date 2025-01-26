@@ -26,7 +26,7 @@ public class Subtag {
         this.ativo = true;
     }
 
-    public void excluir() {
+    public void desabilitar() {
         this.ativo = false;
     }
 }

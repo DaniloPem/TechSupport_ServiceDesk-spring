@@ -37,4 +37,10 @@ public class SubtagController {
         subtagService.atualizar(id, dadosCadastroSubtag);
         return ResponseEntity.ok(id);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desabilitar(@PathVariable Long id) {
+        subtagService.desabilitar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
