@@ -51,4 +51,10 @@ public class TagController {
         return ResponseEntity.ok(id);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desabilitar(@PathVariable Long id) {
+        tagService.desabilitar(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

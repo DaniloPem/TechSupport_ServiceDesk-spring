@@ -64,4 +64,8 @@ public class TagService {
         return subtagRepository.findAllById(subtagsId);
     }
 
+    public void desabilitar(Long id) {
+        Tag tag = tagRepository.getReferenceById(id);
+        tag.desabilitar();
+    }
 }
