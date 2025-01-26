@@ -45,4 +45,10 @@ public class TagController {
         return ResponseEntity.ok(tagService.criar(dadosCadastroTag).getId());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> atualizar(@PathVariable Long id, @RequestBody @Valid DadosCadastroTag dadosCadastroTag) {
+        tagService.atualizar(id, dadosCadastroTag);
+        return ResponseEntity.ok(id);
+    }
+
 }

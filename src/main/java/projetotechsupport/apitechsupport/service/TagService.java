@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,10 @@ import projetotechsupport.apitechsupport.model.subtag.SubtagRepository;
 import projetotechsupport.apitechsupport.model.tag.*;
 import projetotechsupport.apitechsupport.shared.dtos.IdNomeDTO;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 @Transactional
@@ -46,7 +50,18 @@ public class TagService {
         return tagRepository.save(tag);
     }
 
+    public Tag atualizar(Long id, DadosCadastroTag dadosCadastroTag) {
+        Optional<Tag> tagOptional = tagRepository.findById(id);
+        Tag tag = tagOptional.orElseThrow(() -> new DataIntegrityViolationException("TAG NÃO EXISTE."));
+        tag.setNome(dadosCadastroTag.nome());
+        List<Subtag> subtags = getSubtags(dadosCadastroTag.subTagsId());
+        tag.setSubtags(subtags);
+        tagRepository.save(tag);
+        return tag;
+    }
+
     private List<Subtag> getSubtags(List<Long> subtagsId) {
         return subtagRepository.findAllById(subtagsId);
     }
+
 }
