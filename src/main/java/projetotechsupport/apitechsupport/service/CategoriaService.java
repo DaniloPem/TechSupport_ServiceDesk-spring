@@ -62,4 +62,8 @@ public class CategoriaService {
         return tagsId != null ? tagRepository.findAllById(tagsId) : Collections.emptyList();
     }
 
+    public void desabilitar(Long id) {
+        Categoria categoria = categoriaRepository.getReferenceById(id);
+        categoria.desabilitar();
+    }
 }

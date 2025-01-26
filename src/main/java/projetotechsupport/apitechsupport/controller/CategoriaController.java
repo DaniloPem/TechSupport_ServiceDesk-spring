@@ -45,4 +45,10 @@ public class CategoriaController {
         categoriaService.atualizar(dadosCadastroCategoria, id);
         return ResponseEntity.ok(id);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desabilitar(@PathVariable Long id) {
+        categoriaService.desabilitar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
