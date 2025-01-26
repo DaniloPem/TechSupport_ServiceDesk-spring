@@ -2,6 +2,7 @@ package projetotechsupport.apitechsupport.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import projetotechsupport.apitechsupport.model.subtag.DadosCadastroSubtag;
 import projetotechsupport.apitechsupport.model.subtag.Subtag;
@@ -27,6 +28,14 @@ public class SubtagService {
     public Subtag create(DadosCadastroSubtag dadosCadastroSubtag){
         Subtag subtag = new Subtag(dadosCadastroSubtag);
         return subtagRepository.save(subtag);
+    }
+
+    public Subtag atualizar(Long id, DadosCadastroSubtag dadosCadastroSubtag) {
+        Optional<Subtag> subtagOptional = subtagRepository.findById(id);
+        Subtag subtag = subtagOptional.orElseThrow(() -> new DataIntegrityViolationException("SUBTAG NÃPO EXISTE."));
+        subtag.setNome(dadosCadastroSubtag.nome());
+        subtagRepository.save(subtag);
+        return subtag;
     }
 
 }

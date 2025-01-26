@@ -31,4 +31,10 @@ public class SubtagController {
     public ResponseEntity<Long> criar(@RequestBody @Valid DadosCadastroSubtag dadosCadastroSubtag) {
         return ResponseEntity.ok(subtagService.create(dadosCadastroSubtag).getId());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> atualizar(@PathVariable Long id, @RequestBody @Valid DadosCadastroSubtag dadosCadastroSubtag) {
+        subtagService.atualizar(id, dadosCadastroSubtag);
+        return ResponseEntity.ok(id);
+    }
 }
