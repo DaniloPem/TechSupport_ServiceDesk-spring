@@ -30,6 +30,12 @@ public class GrupoAssignadoService {
     private final GrupoAssignadoRepository grupoAssignadoRepository;
     private final CategoriaRepository categoriaRepository;
 
+    public DadosVisualizacaoGrupoAssignado findById(Long id) {
+        Optional<GrupoAssignado> grupoAssignadoOptional = grupoAssignadoRepository.findById(id);
+        GrupoAssignado grupoAssignado = grupoAssignadoOptional.orElseThrow(() -> new DataIntegrityViolationException("GRUPO ASSIGNADO NÃO EXISTE."));
+        return new DadosVisualizacaoGrupoAssignado(grupoAssignado);
+    }
+
     public List<IdNomeDTO> findByCategoriaId(Long categoriaId) {
         List<GrupoAssignado> gruposAssignados = grupoAssignadoRepository.findByCategoriasId(categoriaId);
         return gruposAssignados.stream().map(grupoAssignado -> new IdNomeDTO(grupoAssignado.getId(), grupoAssignado.getNome())).toList();

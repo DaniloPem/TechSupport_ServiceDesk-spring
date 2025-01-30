@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projetotechsupport.apitechsupport.model.categoria.CategoriaRecord;
-import projetotechsupport.apitechsupport.model.grupoAssignado.DadosCadastroGrupoAssignado;
-import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignado;
-import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoPageDTO;
-import projetotechsupport.apitechsupport.model.grupoAssignado.GrupoAssignadoRecord;
+import projetotechsupport.apitechsupport.model.grupoAssignado.*;
 import projetotechsupport.apitechsupport.model.usuario.DadosCadastroUsuario;
 import projetotechsupport.apitechsupport.service.GrupoAssignadoService;
 import projetotechsupport.apitechsupport.shared.dtos.IdNomeDTO;
@@ -25,6 +22,11 @@ import java.util.List;
 public class GrupoAssignadoController {
 
     private final GrupoAssignadoService grupoAssignadoService;
+
+    @GetMapping("/management/{id}")
+    public @ResponseBody DadosVisualizacaoGrupoAssignado getById(@PathVariable Long id) {
+        return grupoAssignadoService.findById(id);
+    }
 
     @GetMapping
     public @ResponseBody GrupoAssignadoPageDTO listarAllGruposAssignados(@RequestParam String filter,
