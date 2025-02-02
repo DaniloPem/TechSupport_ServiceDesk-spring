@@ -18,9 +18,11 @@ public interface GrupoAssignadoRepository extends JpaRepository<GrupoAssignado, 
             SELECT grupo FROM GrupoAssignado grupo
             JOIN grupo.categorias categorias
             JOIN grupo.usuarios usuarios
-            WHERE grupo.nome LIKE :filtro OR
+            WHERE grupo.ativo = true AND (
+            grupo.nome LIKE :filtro OR
             categorias.nome LIKE :filtro OR
             usuarios.nome LIKE :filtro
+            )
             """)
     Page<GrupoAssignado> findByFiltro(String filtro, Pageable pageable);
 
