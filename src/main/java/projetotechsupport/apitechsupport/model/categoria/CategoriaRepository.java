@@ -22,4 +22,6 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
             COALESCE(tag.nome, '') LIKE :filtro
             """)
     Page<Categoria> findByFiltro(String filtro, Pageable pageable);
+
+    List<Categoria> findByIdIn(List<Long> ids);
 }

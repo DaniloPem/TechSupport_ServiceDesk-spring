@@ -66,4 +66,9 @@ public class CategoriaService {
         Categoria categoria = categoriaRepository.getReferenceById(id);
         categoria.desabilitar();
     }
+
+    public List<CategoriaRecord> findByIds(List<Long> ids) {
+        List<Categoria> categorias = categoriaRepository.findByIdIn(ids);
+        return categorias.stream().map(CategoriaRecord::new).toList();
+    }
 }

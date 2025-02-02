@@ -30,8 +30,13 @@ public class CategoriaController {
         return categoriaService.findAllCategorias(filter, page, pageSize);
     }
     @GetMapping("/por-nome")
-    public @ResponseBody List<CategoriaRecord> listar(@RequestParam(value = "nome") String namePattern) {
+    public @ResponseBody List<CategoriaRecord> listarPorNome(@RequestParam(value = "nome") String namePattern) {
         return categoriaService.findByNomeLike(namePattern);
+    }
+
+    @GetMapping("/{ids}")
+    public @ResponseBody List<CategoriaRecord> listarPorIds(@PathVariable List<Long> ids) {
+        return categoriaService.findByIds(ids);
     }
 
     @PostMapping
