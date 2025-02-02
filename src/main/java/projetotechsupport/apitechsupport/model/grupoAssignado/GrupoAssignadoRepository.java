@@ -17,7 +17,7 @@ public interface GrupoAssignadoRepository extends JpaRepository<GrupoAssignado, 
     @Query("""
             SELECT grupo FROM GrupoAssignado grupo
             JOIN grupo.categorias categorias
-            JOIN grupo.usuarios usuarios
+            LEFT JOIN grupo.usuarios usuarios
             WHERE grupo.ativo = true AND (
             grupo.nome LIKE :filtro OR
             categorias.nome LIKE :filtro OR
